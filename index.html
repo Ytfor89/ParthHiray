@@ -9,14 +9,25 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Space+Mono&display=swap');
         
-        :root { --bg: #000; --text: #fff; --glass: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); }
+        :root { --bg: #000; --text: #fff; --glass: rgba(255,255,255,0.02); --border: rgba(255,255,255,0.1); }
         .light-mode { --bg: #f5f5f7; --text: #000; --glass: rgba(0,0,0,0.03); --border: rgba(0,0,0,0.1); }
 
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; transition: background 0.5s, color 0.5s; overflow-x: hidden; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; transition: background 0.5s, color 0.5s; overflow-x: hidden; scroll-behavior: smooth; }
         .mono { font-family: 'Space Mono', monospace; }
 
         .glass { background: var(--glass); border: 1px solid var(--border); backdrop-filter: blur(20px); border-radius: 20px; transition: 0.3s; }
         .glass:hover { border-color: #FF9933; }
+
+        /* RGB Writing Effect */
+        .rgb-text {
+            background: linear-gradient(to right, #ff0000, #00ff00, #0000ff, #ff0000);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: chroma 3s linear infinite;
+        }
+        @keyframes chroma { to { background-position: 200% center; } }
 
         /* Aadhaar Logic */
         .aadhaar-wrapper { perspective: 1000px; width: 340px; height: 210px; }
@@ -24,11 +35,6 @@
         .aadhaar-wrapper:hover .aadhaar-card { transform: rotateY(180deg); }
         .card-side { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; background: #fff; color: #333; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .card-back { transform: rotateY(180deg); background: #fdfdfd; }
-
-        /* Marquee */
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .marquee { display: flex; overflow: hidden; white-space: nowrap; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 0; }
-        .marquee-content { display: flex; animation: scroll 20s linear infinite; }
 
         .mode-toggle { position: fixed; bottom: 30px; right: 30px; z-index: 100; padding: 12px 24px; border-radius: 50px; font-weight: bold; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
     </style>
@@ -38,7 +44,7 @@
     <button onclick="toggleMode()" class="mode-toggle glass uppercase" id="modeBtn">Switch to Prism</button>
 
     <header class="fixed top-0 w-full p-8 flex justify-between items-center z-50 mix-blend-difference">
-        <span class="font-black text-2xl tracking-tighter">PH.</span>
+        <span class="font-black text-2xl tracking-tighter uppercase" id="typewriter-name"></span>
         <div id="clock" class="text-[10px] mono">00:00:00</div>
     </header>
 
@@ -51,11 +57,8 @@
         </div>
     </section>
 
-    <div class="marquee mb-20">
-        <div class="marquee-content gap-12 text-3xl font-black opacity-20 uppercase tracking-widest">
-            <span>Engineering</span> <span>Design</span> <span>Logic</span> <span>Grade XI</span> <span>Architecture</span> <span>Fullstack</span>
-            <span>Engineering</span> <span>Design</span> <span>Logic</span> <span>Grade XI</span> <span>Architecture</span> <span>Fullstack</span>
-        </div>
+    <div class="py-10 border-y border-white/5 bg-white/2 text-center">
+        <h2 class="text-2xl font-black mono uppercase tracking-widest rgb-text" id="typewriter-skills"></h2>
     </div>
 
     <section class="py-20 px-10 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto gap-20">
@@ -89,10 +92,6 @@
         <div class="max-w-md">
             <h2 class="text-4xl font-black mb-6">Verified Architect</h2>
             <p class="opacity-50 text-sm leading-relaxed mb-8">Specializing in high-end UI/UX architecture and full-stack development. Every system is built on a foundation of clean code and premium aesthetics.</p>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="glass p-4"><p class="text-[9px] mono uppercase opacity-50">Status</p><p class="font-bold">Active</p></div>
-                <div class="glass p-4"><p class="text-[9px] mono uppercase opacity-50">Year</p><p class="font-bold">2026</p></div>
-            </div>
         </div>
     </section>
 
@@ -122,21 +121,36 @@
     </section>
 
     <script>
-        // Clock Logic
-        setInterval(() => {
-            document.getElementById('clock').innerText = new Date().toLocaleTimeString();
-        }, 1000);
-
-        // Dark/Light Toggle
-        function toggleMode() {
-            const body = document.getElementById('main');
-            const btn = document.getElementById('modeBtn');
-            body.classList.toggle('light-mode');
-            if(body.classList.contains('light-mode')) {
-                btn.innerText = "Switch to Stealth";
-            } else {
-                btn.innerText = "Switch to Prism";
+        // Typing Logic
+        function setupTypewriter(id, textArray, speed = 100) {
+            let i = 0; let j = 0; let isDeleting = false;
+            function type() {
+                const el = document.getElementById(id);
+                const currentText = textArray[i];
+                if (isDeleting) {
+                    el.innerText = currentText.substring(0, j - 1); j--;
+                } else {
+                    el.innerText = currentText.substring(0, j + 1); j++;
+                }
+                if (!isDeleting && j === currentText.length) {
+                    setTimeout(() => isDeleting = true, 2000);
+                } else if (isDeleting && j === 0) {
+                    isDeleting = false; i = (i + 1) % textArray.length;
+                }
+                setTimeout(type, isDeleting ? 50 : speed);
             }
+            type();
+        }
+
+        // Initialize Typing Effects
+        setupTypewriter('typewriter-name', ['Parth Hiray.', 'The Architect.', 'PH_2026.']);
+        setupTypewriter('typewriter-skills', ['Frontend Engineering', 'UX Architecture', 'System Logic', 'RGB Interface Design']);
+
+        // Clock & Mode Logic
+        setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
+        function toggleMode() {
+            document.getElementById('main').classList.toggle('light-mode');
+            document.getElementById('modeBtn').innerText = document.getElementById('main').classList.contains('light-mode') ? "Switch to Stealth" : "Switch to Prism";
         }
 
         // VCard Download
@@ -144,17 +158,12 @@
             const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Parth Hiray\nTEL;TYPE=CELL:6969696969\nEND:VCARD";
             const blob = new Blob([vcard], { type: "text/vcard" });
             const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url; a.download = 'Parth_Hiray.vcf';
-            a.click();
+            const a = document.createElement('a'); a.href = url; a.download = 'Parth_Hiray.vcf'; a.click();
         }
 
-        // Final Redirect
         function handleInsta(e) {
             e.preventDefault();
-            gsap.to("body", { opacity: 0, duration: 1, onComplete: () => {
-                window.location.href = "https://instagram.com/parthhiray";
-            }});
+            gsap.to("body", { opacity: 0, duration: 1, onComplete: () => { window.location.href = "https://instagram.com/parthhiray"; }});
         }
     </script>
 </body>
