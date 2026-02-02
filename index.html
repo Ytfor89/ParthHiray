@@ -18,22 +18,22 @@
         .glass { background: var(--glass); border: 1px solid var(--border); backdrop-filter: blur(20px); border-radius: 20px; transition: 0.3s; }
         .glass:hover { border-color: #FF9933; }
 
-        /* RGB Writing Effect */
+        /* RGB Dynamic Glow */
         .rgb-text {
-            background: linear-gradient(to right, #ff0000, #00ff00, #0000ff, #ff0000);
+            background: linear-gradient(to right, #ff3333, #33ff33, #3333ff, #ff3333);
             background-size: 200% auto;
             color: transparent;
             -webkit-background-clip: text;
             background-clip: text;
-            animation: chroma 3s linear infinite;
+            animation: chroma 4s linear infinite;
         }
         @keyframes chroma { to { background-position: 200% center; } }
 
-        /* Aadhaar Logic */
+        /* Aadhaar Wrapper */
         .aadhaar-wrapper { perspective: 1000px; width: 340px; height: 210px; }
         .aadhaar-card { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
         .aadhaar-wrapper:hover .aadhaar-card { transform: rotateY(180deg); }
-        .card-side { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; background: #fff; color: #333; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .card-side { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; background: #fff; color: #333; }
         .card-back { transform: rotateY(180deg); background: #fdfdfd; }
 
         .mode-toggle { position: fixed; bottom: 30px; right: 30px; z-index: 100; padding: 12px 24px; border-radius: 50px; font-weight: bold; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
@@ -57,10 +57,6 @@
         </div>
     </section>
 
-    <div class="py-10 border-y border-white/5 bg-white/2 text-center">
-        <h2 class="text-2xl font-black mono uppercase tracking-widest rgb-text" id="typewriter-skills"></h2>
-    </div>
-
     <section class="py-20 px-10 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto gap-20">
         <div class="aadhaar-wrapper">
             <div class="aadhaar-card">
@@ -74,8 +70,8 @@
                         <div class="w-16 h-20 bg-gray-100 border rounded"></div>
                         <div class="text-[10px]">
                             <p class="font-black text-xs uppercase">Parth Hiray</p>
-                            <p class="text-gray-500 mt-1">DOB: 2009</p>
-                            <p class="text-gray-500">Male / पुरुष</p>
+                            <p class="text-gray-500 mt-1 uppercase">DOB: 2009</p>
+                            <p class="text-gray-500 uppercase">Male / पुरुष</p>
                         </div>
                     </div>
                     <p class="mt-auto text-center font-bold tracking-[0.3em] text-gray-800 text-lg">XXXX XXXX 2026</p>
@@ -97,15 +93,15 @@
 
     <section id="services" class="py-32 px-10 max-w-7xl mx-auto grid md:grid-cols-3 gap-6">
         <div class="glass p-10">
-            <h3 class="font-black text-xl mb-4">Web Apps</h3>
+            <h3 class="font-black text-xl mb-4 rgb-text" id="type-skill-1"></h3>
             <p class="text-sm opacity-50">High-speed digital products built with modern React frameworks.</p>
         </div>
         <div class="glass p-10">
-            <h3 class="font-black text-xl mb-4">UI Motion</h3>
+            <h3 class="font-black text-xl mb-4 rgb-text" id="type-skill-2"></h3>
             <p class="text-sm opacity-50">Advanced GSAP animations that bring static layouts to life.</p>
         </div>
         <div class="glass p-10">
-            <h3 class="font-black text-xl mb-4">Branding</h3>
+            <h3 class="font-black text-xl mb-4 rgb-text" id="type-skill-3"></h3>
             <p class="text-sm opacity-50">Establishing a powerful visual identity for tech companies.</p>
         </div>
     </section>
@@ -121,44 +117,45 @@
     </section>
 
     <script>
-        // Typing Logic
-        function setupTypewriter(id, textArray, speed = 100) {
+        // Writing/Typing Engine
+        function typeWriter(id, textArray, speed = 100) {
             let i = 0; let j = 0; let isDeleting = false;
-            function type() {
+            function run() {
                 const el = document.getElementById(id);
-                const currentText = textArray[i];
+                const current = textArray[i];
                 if (isDeleting) {
-                    el.innerText = currentText.substring(0, j - 1); j--;
+                    el.innerText = current.substring(0, j - 1); j--;
                 } else {
-                    el.innerText = currentText.substring(0, j + 1); j++;
+                    el.innerText = current.substring(0, j + 1); j++;
                 }
-                if (!isDeleting && j === currentText.length) {
-                    setTimeout(() => isDeleting = true, 2000);
+                if (!isDeleting && j === current.length) {
+                    setTimeout(() => isDeleting = true, 1500);
                 } else if (isDeleting && j === 0) {
                     isDeleting = false; i = (i + 1) % textArray.length;
                 }
-                setTimeout(type, isDeleting ? 50 : speed);
+                setTimeout(run, isDeleting ? 50 : speed);
             }
-            type();
+            run();
         }
 
-        // Initialize Typing Effects
-        setupTypewriter('typewriter-name', ['Parth Hiray.', 'The Architect.', 'PH_2026.']);
-        setupTypewriter('typewriter-skills', ['Frontend Engineering', 'UX Architecture', 'System Logic', 'RGB Interface Design']);
+        // Apply Writing Effects
+        typeWriter('typewriter-name', ['Parth Hiray.', 'The Architect.', 'Grade XI.']);
+        typeWriter('type-skill-1', ['Web Apps', 'Fullstack Dev', 'React Engine']);
+        typeWriter('type-skill-2', ['UI Motion', 'GSAP Animation', 'Interaction']);
+        typeWriter('type-skill-3', ['Branding', 'Visual Identity', 'Logo Arch']);
 
-        // Clock & Mode Logic
+        // System Functions
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
         function toggleMode() {
             document.getElementById('main').classList.toggle('light-mode');
             document.getElementById('modeBtn').innerText = document.getElementById('main').classList.contains('light-mode') ? "Switch to Stealth" : "Switch to Prism";
         }
 
-        // VCard Download
         function downloadVCard() {
-            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Parth Hiray\nTEL;TYPE=CELL:6969696969\nEND:VCARD";
-            const blob = new Blob([vcard], { type: "text/vcard" });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href = url; a.download = 'Parth_Hiray.vcf'; a.click();
+            const v = "BEGIN:VCARD\nVERSION:3.0\nFN:Parth Hiray\nTEL;TYPE=CELL:6969696969\nEND:VCARD";
+            const b = new Blob([v], { type: "text/vcard" });
+            const u = window.URL.createObjectURL(b);
+            const a = document.createElement('a'); a.href = u; a.download = 'Parth_Hiray.vcf'; a.click();
         }
 
         function handleInsta(e) {
