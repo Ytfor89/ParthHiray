@@ -2,73 +2,35 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Parth Hiray | Futuristic Portfolio</title>
+<title>Parth Hiray | Cyber Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,system-ui;}
 body{
-  background:#05070d;
+  background:#02040a;
   color:#fff;
   overflow-x:hidden;
 }
-
-/* ===== VARIABLES ===== */
 :root{
   --neon:#00f6ff;
-  --purple:#9b5cff;
+  --pink:#ff2cdf;
 }
 
 /* ===== LOADER ===== */
 #loader{
-  position:fixed;
-  inset:0;
-  background:#05070d;
+  position:fixed;inset:0;
+  background:#02040a;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   z-index:9999;
 }
-#loader h1{
-  color:var(--neon);
-  letter-spacing:3px;
-  margin-bottom:25px;
-}
-.bar{
-  width:260px;
-  height:8px;
-  border:1px solid var(--neon);
-  border-radius:20px;
-  overflow:hidden;
-}
-.progress{
-  width:0%;
-  height:100%;
-  background:var(--neon);
-  box-shadow:0 0 20px var(--neon);
-  animation:load 3s forwards;
-}
+#loader h1{color:var(--neon);letter-spacing:4px;}
+.bar{width:260px;height:8px;border:1px solid var(--neon);margin-top:20px;}
+.fill{height:100%;width:0;background:var(--neon);animation:load 3s forwards;}
 @keyframes load{to{width:100%;}}
-
-/* ===== PARTICLES ===== */
-canvas{
-  position:fixed;
-  inset:0;
-  z-index:-1;
-}
-
-/* ===== CURSOR ===== */
-.cursor{
-  width:25px;height:25px;
-  border-radius:50%;
-  position:fixed;
-  pointer-events:none;
-  background:rgba(0,246,255,.4);
-  box-shadow:0 0 25px var(--neon);
-  transform:translate(-50%,-50%);
-  z-index:999;
-}
 
 /* ===== HERO ===== */
 .hero{
@@ -80,148 +42,108 @@ canvas{
   text-align:center;
 }
 .hero h1{
-  font-size:3.2rem;
-  text-shadow:0 0 25px var(--neon);
+  font-size:3.6rem;
+  text-shadow:0 0 35px var(--neon);
 }
 .hero span{color:var(--neon);}
-.typing{
-  margin-top:15px;
-  font-size:1.2rem;
-  color:#aaa;
-  height:30px;
-}
+.typing{margin-top:15px;color:#aaa;height:26px}
 
-/* ===== BUTTON ===== */
 .btn{
-  margin-top:35px;
-  padding:15px 40px;
+  margin-top:30px;
+  padding:15px 45px;
+  border:2px solid var(--neon);
   background:transparent;
   color:#fff;
-  border:2px solid var(--neon);
   border-radius:40px;
   cursor:pointer;
-  font-size:1rem;
-  position:relative;
-  overflow:hidden;
   transition:.4s;
 }
-.btn::after{
-  content:"";
-  position:absolute;
-  inset:0;
+.btn:hover{
   background:var(--neon);
-  transform:scaleX(0);
-  transform-origin:left;
-  transition:.4s;
-  z-index:-1;
+  color:#000;
+  box-shadow:0 0 35px var(--neon);
+  transform:scale(1.1);
 }
-.btn:hover::after{transform:scaleX(1);}
-.btn:hover{color:#000;box-shadow:0 0 30px var(--neon);}
 
 /* ===== SECTIONS ===== */
-section{
-  padding:90px 10%;
-  opacity:0;
-  transform:translateY(60px);
-  transition:1s;
-}
-section.show{
-  opacity:1;
-  transform:translateY(0);
-}
-h2{
-  text-align:center;
-  font-size:2.4rem;
-  margin-bottom:40px;
-  color:var(--neon);
-}
+section{padding:90px 10%;}
+h2{text-align:center;font-size:2.5rem;color:var(--neon);margin-bottom:50px}
 
-/* ===== CARDS ===== */
+/* ===== FLIP CARDS ===== */
 .cards{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:30px;
 }
-.card{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(12px);
-  border-radius:20px;
-  padding:30px;
-  border:1px solid rgba(255,255,255,0.1);
-  transition:.4s;
-}
-.card:hover{
-  transform:translateY(-12px);
-  box-shadow:0 0 30px var(--purple);
-}
 
-/* ===== STUDENT ID ===== */
-.id-wrap{display:flex;justify-content:center;}
-.id-card{
-  width:320px;height:200px;
+.flip-card{
   perspective:1000px;
-  transition:transform .2s ease;
 }
-.id-inner{
-  width:100%;height:100%;
+.flip-inner{
+  position:relative;
+  width:100%;height:220px;
   transform-style:preserve-3d;
   transition:1s;
 }
-.id-card:hover .id-inner{
+.flip-card:hover .flip-inner{
   transform:rotateY(180deg);
 }
-.id-face{
-  position:absolute;
-  inset:0;
-  border-radius:18px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+.flip-face{
+  position:absolute;inset:0;
+  border-radius:20px;
+  padding:25px;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.12);
   backface-visibility:hidden;
-  border:2px solid var(--neon);
-  box-shadow:0 0 25px var(--neon);
-  overflow:hidden;
 }
-.front{
-  background:linear-gradient(135deg,#0f2027,#203a43);
-}
+.flip-face h3{color:var(--neon);}
 .back{
-  background:linear-gradient(135deg,#1a002a,#3a0ca3);
   transform:rotateY(180deg);
+  background:linear-gradient(135deg,#16002a,#3a0ca3);
 }
 
-/* ===== SCAN + QR ===== */
-.scan{
-  position:absolute;
-  top:0;left:0;
-  width:100%;
-  height:4px;
-  background:rgba(0,246,255,.8);
-  box-shadow:0 0 20px var(--neon);
-  animation:scan 3s linear infinite;
-}
-@keyframes scan{to{top:100%;}}
-
-.qr{
-  width:60px;height:60px;
-  margin:10px 0;
-  background:
-    linear-gradient(90deg,var(--neon) 50%,transparent 50%),
-    linear-gradient(var(--neon) 50%,transparent 50%);
-  background-size:8px 8px;
-  box-shadow:0 0 15px var(--neon);
-  animation:pulse 2s infinite;
-}
-@keyframes pulse{
-  50%{transform:scale(1.1);}
+/* ===== MAGNETIC HOVER ===== */
+.magnetic{
+  transition:transform .15s;
 }
 
-/* ===== FOOTER ===== */
-footer{
+/* ===== GAME ===== */
+.game{
   text-align:center;
-  padding:30px;
-  opacity:.6;
+}
+#target{
+  width:80px;height:80px;
+  background:var(--neon);
+  border-radius:50%;
+  margin:30px auto;
+  box-shadow:0 0 30px var(--neon);
+  cursor:pointer;
+}
+#score{font-size:1.2rem;margin-top:10px}
+
+/* ===== TERMINAL ===== */
+.terminal{
+  background:#000;
+  border:2px solid var(--neon);
+  border-radius:12px;
+  padding:20px;
+  font-family:monospace;
+  box-shadow:0 0 30px var(--neon);
+}
+.terminal p{color:#0f0;margin-bottom:6px}
+.input{
+  width:100%;
+  background:black;
+  border:none;
+  color:#0f0;
+  outline:none;
+}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media(max-width:768px){
+  .hero h1{font-size:2.6rem}
+  section{padding:70px 7%}
 }
 </style>
 </head>
@@ -230,20 +152,16 @@ footer{
 
 <!-- LOADER -->
 <div id="loader">
-  <h1>INITIALIZING SYSTEM</h1>
-  <div class="bar"><div class="progress"></div></div>
-  <p style="opacity:.6;margin-top:10px;">Loading Futuristic Interface…</p>
+  <h1>BOOTING SYSTEM</h1>
+  <div class="bar"><div class="fill"></div></div>
 </div>
-
-<canvas id="bg"></canvas>
-<div class="cursor"></div>
 
 <!-- HERO -->
 <div class="hero">
   <h1>Parth <span>Hiray</span></h1>
   <div class="typing" id="typing"></div>
   <button class="btn" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
-    Enter Portfolio
+    ENTER SYSTEM
   </button>
 </div>
 
@@ -251,8 +169,28 @@ footer{
 <section id="about">
 <h2>About Me</h2>
 <div class="cards">
-  <div class="card">
-    I am a 17-year-old Class 11 student passionate about futuristic technology, animations, and creative web design.
+  <div class="flip-card magnetic">
+    <div class="flip-inner">
+      <div class="flip-face">
+        <h3>Who Am I</h3>
+        <p>17-year-old Class 11 student exploring tech & creative coding.</p>
+      </div>
+      <div class="flip-face back">
+        <p>I love futuristic UI, animations, and interactive experiences.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card magnetic">
+    <div class="flip-inner">
+      <div class="flip-face">
+        <h3>Mindset</h3>
+        <p>Curious learner & experimenter.</p>
+      </div>
+      <div class="flip-face back">
+        <p>Breaking things → rebuilding smarter.</p>
+      </div>
+    </div>
   </div>
 </div>
 </section>
@@ -261,110 +199,83 @@ footer{
 <section>
 <h2>Skills</h2>
 <div class="cards">
-  <div class="card">HTML & CSS</div>
-  <div class="card">JavaScript (Learning)</div>
-  <div class="card">Futuristic UI Design</div>
-</div>
-</section>
-
-<!-- PROJECTS -->
-<section>
-<h2>Projects</h2>
-<div class="cards">
-  <div class="card">Animated Portfolio Website</div>
-  <div class="card">Creative School Projects</div>
-  <div class="card">Future Tech Concepts</div>
-</div>
-</section>
-
-<!-- STUDENT ID -->
-<section>
-<h2>National Student Identity (Concept)</h2>
-<p style="text-align:center;opacity:.6">Fictional · Not a government document</p><br>
-
-<div class="id-wrap">
-  <div class="id-card">
-    <div class="id-inner">
-
-      <div class="id-face front">
-        <div class="scan"></div>
-        <h3>STUDENT IDENTITY</h3>
-        <p>Name: Parth Hiray</p>
-        <p>Age: 17</p>
-        <p>Class: 11</p>
-        <p>Status: Active</p>
-        <div class="qr"></div>
-        <small>Education Sector · India</small>
-      </div>
-
-      <div class="id-face back">
-        <h3>IDENTITY DATA</h3>
-        <p>ID TYPE: STUDENT (CONCEPT)</p>
-        <p>VALID USE: PORTFOLIO</p>
-        <small>⚠ NOT A REAL ID</small>
-      </div>
-
+  <div class="flip-card magnetic">
+    <div class="flip-inner">
+      <div class="flip-face"><h3>HTML / CSS</h3></div>
+      <div class="flip-face back"><p>Strong foundation</p></div>
+    </div>
+  </div>
+  <div class="flip-card magnetic">
+    <div class="flip-inner">
+      <div class="flip-face"><h3>JavaScript</h3></div>
+      <div class="flip-face back"><p>Learning & building</p></div>
     </div>
   </div>
 </div>
 </section>
 
-<footer>© 2026 Parth Hiray · Futuristic Portfolio</footer>
+<!-- GAME -->
+<section>
+<h2>Play a Game</h2>
+<div class="game">
+  <div id="target"></div>
+  <div id="score">Score: 0</div>
+</div>
+</section>
+
+<!-- TERMINAL -->
+<section>
+<h2>AI Terminal</h2>
+<div class="terminal">
+  <p>> System online</p>
+  <p>> Type: about / skills / game</p>
+  <input class="input" id="cmd" placeholder="> enter command">
+</div>
+</section>
 
 <script>
 /* LOADER */
-window.onload=()=>setTimeout(()=>loader.style.display="none",3200);
+setTimeout(()=>loader.style.display="none",3200);
 
 /* TYPING */
-const texts=["Class 11 Student","Future Tech Creator","Futuristic Designer"];
-let i=0,j=0,d=false,el=document.getElementById("typing");
+const texts=["Class 11 Student","Future Tech Creator","Cyber UI Designer"];
+let i=0,j=0,d=false;
 setInterval(()=>{
-  el.textContent=texts[i].slice(0,j);
+  typing.textContent=texts[i].slice(0,j);
   d?j--:j++;
-  if(j>texts[i].length+8)d=true;
+  if(j>texts[i].length+6)d=true;
   if(j===0&&d){d=false;i=(i+1)%texts.length;}
 },120);
 
-/* CURSOR */
-const cursor=document.querySelector(".cursor");
-addEventListener("mousemove",e=>{
-  cursor.style.left=e.clientX+"px";
-  cursor.style.top=e.clientY+"px";
-});
-
-/* SECTION REVEAL */
-document.querySelectorAll("section").forEach(s=>{
-  addEventListener("scroll",()=>{
-    if(s.getBoundingClientRect().top<innerHeight-100)
-      s.classList.add("show");
+/* MAGNETIC */
+document.querySelectorAll(".magnetic").forEach(el=>{
+  el.addEventListener("mousemove",e=>{
+    const r=el.getBoundingClientRect();
+    el.style.transform=`translate(${(e.clientX-r.left-r.width/2)/10}px,
+      ${(e.clientY-r.top-r.height/2)/10}px)`;
   });
+  el.addEventListener("mouseleave",()=>el.style.transform="translate(0,0)");
 });
 
-/* 3D PARALLAX */
-const card=document.querySelector(".id-card");
-card.addEventListener("mousemove",e=>{
-  const r=card.getBoundingClientRect();
-  card.style.transform=`rotateX(${-(e.clientY-r.top-r.height/2)/15}deg)
-                        rotateY(${(e.clientX-r.left-r.width/2)/15}deg)`;
-});
-card.addEventListener("mouseleave",()=>card.style.transform="rotateX(0) rotateY(0)");
+/* GAME */
+let score=0;
+target.onclick=()=>{
+  score++;
+  scoreEl=document.getElementById("score");
+  scoreEl.textContent="Score: "+score;
+  target.style.marginLeft=Math.random()*200+"px";
+};
 
-/* PARTICLES */
-const c=document.getElementById("bg"),ctx=c.getContext("2d");
-resize();onresize=resize;
-let p=[...Array(90)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:Math.random()-.5,vy:Math.random()-.5}));
-function resize(){c.width=innerWidth;c.height=innerHeight;}
-(function anim(){
-  ctx.clearRect(0,0,c.width,c.height);
-  p.forEach(a=>{
-    a.x+=a.vx;a.y+=a.vy;
-    if(a.x<0||a.x>c.width)a.vx*=-1;
-    if(a.y<0||a.y>c.height)a.vy*=-1;
-    ctx.fillStyle="rgba(0,246,255,.6)";
-    ctx.fillRect(a.x,a.y,2,2);
-  });
-  requestAnimationFrame(anim);
-})();
+/* TERMINAL */
+cmd.addEventListener("keydown",e=>{
+  if(e.key==="Enter"){
+    let v=cmd.value.toLowerCase();
+    if(v==="about")alert("Parth Hiray | 17 | Class 11");
+    if(v==="skills")alert("HTML CSS JS UI Design");
+    if(v==="game")alert("Play the neon click game above!");
+    cmd.value="";
+  }
+});
 </script>
 
 </body>
