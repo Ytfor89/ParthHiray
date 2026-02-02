@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PARTH HIRAY // MOOSE_PROTOCOL</title>
+    <title>PARTH HIRAY // LEGACY</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Space+Mono&display=swap');
         
-        :root { --bg: #000; --text: #fff; --glass: rgba(255,255,255,0.03); --spotify: #1DB954; }
-        .light-mode { --bg: #f5f5f7; --text: #000; --glass: rgba(0,0,0,0.05); }
-
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; transition: 0.5s; overflow-x: hidden; scroll-behavior: smooth; }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
         .mono { font-family: 'Space Mono', monospace; }
-        .glass { background: var(--glass); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 20px; transition: 0.3s; }
         
-        /* RGB Typing Title */
+        /* Layout Stabilization */
+        section { position: relative; width: 100%; min-height: 100vh; padding: 100px 20px; z-index: 1; display: block; }
+        
+        /* Glass Effect */
+        .glass { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(15px); border-radius: 24px; }
+        
+        /* RGB Writing Text */
         .rgb-text {
             background: linear-gradient(to right, #ff0000, #00ff00, #0000ff, #ff0000);
             background-size: 200% auto;
@@ -27,86 +29,87 @@
         }
         @keyframes chroma { to { background-position: 200% center; } }
 
-        /* Aadhaar Flip */
-        .aadhaar-wrapper { perspective: 1000px; width: 340px; height: 210px; }
+        /* Aadhaar Wrapper */
+        .aadhaar-wrapper { perspective: 1000px; width: 340px; height: 210px; margin: 0 auto; }
         .aadhaar-card { position: relative; width: 100%; height: 100%; transition: 0.8s; transform-style: preserve-3d; }
         .aadhaar-wrapper:hover .aadhaar-card { transform: rotateY(180deg); }
-        .card-side { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; background: #fff; color: #333; }
+        .card-side { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; background: #fff; color: #333; overflow: hidden; }
         .card-back { transform: rotateY(180deg); background: #fdfdfd; }
 
-        /* Spotify Player Elements */
-        .track-item { cursor: pointer; transition: 0.2s; border-radius: 8px; }
-        .track-item:hover { background: rgba(29, 185, 84, 0.1); }
-        .active-track { color: var(--spotify); font-weight: bold; }
-        
-        .mode-toggle { position: fixed; bottom: 30px; right: 30px; z-index: 100; padding: 12px 24px; border-radius: 50px; font-weight: bold; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+        /* Spotify Player */
+        .track-btn { cursor: pointer; transition: 0.2s; padding: 12px; border-radius: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .track-btn:hover { background: rgba(29, 185, 84, 0.2); color: #1DB954; }
+        iframe { border-radius: 12px; }
     </style>
 </head>
-<body id="main">
+<body>
 
-    <button onclick="toggleMode()" class="mode-toggle glass" id="modeBtn">Switch to Prism</button>
-
-    <header class="fixed top-0 w-full p-8 flex justify-between items-center z-50 mix-blend-difference">
-        <span class="font-black text-2xl tracking-tighter uppercase" id="typewriter-name"></span>
-        <div id="clock" class="text-[10px] mono">00:00:00</div>
+    <header class="fixed top-0 w-full p-8 flex justify-between items-center z-[100] mix-blend-difference">
+        <span class="font-black text-2xl tracking-tighter" id="typewriter-name"></span>
+        <div id="clock" class="text-[10px] mono text-white">00:00:00</div>
     </header>
 
-    <section class="min-h-screen flex flex-col justify-center px-10 md:px-24">
-        <p class="text-orange-500 font-bold tracking-[0.8em] mb-4 text-[10px] uppercase">Protocol 2026</p>
-        <h1 class="text-7xl md:text-[10rem] font-black tracking-tighter leading-none mb-10">PARTH<br>HIRAY.</h1>
+    <section class="flex flex-col justify-center px-6 md:px-24">
+        <p class="text-orange-500 font-bold tracking-[1em] mb-4 text-[10px] uppercase">Protocol 2026</p>
+        <h1 class="text-6xl md:text-[8rem] font-black tracking-tighter leading-none mb-10">PARTH<br>HIRAY.</h1>
         <div class="flex gap-4 mb-20">
-            <button onclick="downloadVCard()" class="px-8 py-4 bg-white text-black font-bold text-[10px] uppercase tracking-widest rounded-full hover:bg-orange-500 transition-all">Get Contact</button>
+            <button onclick="downloadVCard()" class="px-8 py-4 bg-white text-black font-bold text-[10px] uppercase tracking-widest rounded-full hover:bg-orange-500 transition-all">Download V-Card</button>
             <a href="#services" class="px-8 py-4 glass text-[10px] font-bold uppercase tracking-widest rounded-full">Explore Logic</a>
         </div>
 
-        <div id="services" class="grid md:grid-cols-3 gap-6 max-w-7xl">
+        <div id="services" class="grid md:grid-cols-3 gap-6 pt-10">
             <div class="glass p-10">
                 <h3 class="font-black text-2xl mb-4 rgb-text" id="type-skill-1"></h3>
-                <p class="text-sm opacity-50 font-medium">Next-gen fullstack architecture using React and Node protocols.</p>
+                <p class="text-sm opacity-50">Customized software solutions using modern Node.js and React architectures.</p>
             </div>
             <div class="glass p-10">
                 <h3 class="font-black text-2xl mb-4 rgb-text" id="type-skill-2"></h3>
-                <p class="text-sm opacity-50 font-medium">Buttery smooth UI transitions and high-fidelity GSAP motion.</p>
+                <p class="text-sm opacity-50">Advanced motion graphics and UX interaction models.</p>
             </div>
             <div class="glass p-10">
                 <h3 class="font-black text-2xl mb-4 rgb-text" id="type-skill-3"></h3>
-                <p class="text-sm opacity-50 font-medium">Visual identity design for high-performance digital brands.</p>
+                <p class="text-sm opacity-50">Visual identity and high-end digital branding strategies.</p>
             </div>
         </div>
     </section>
 
-    <section class="py-20 px-10 max-w-7xl mx-auto">
-        <h2 class="text-xs mono tracking-[1em] uppercase opacity-40 mb-10">MooseTape Protocol</h2>
-        <div class="grid md:grid-cols-2 gap-10 items-start">
-            <div class="glass p-8 flex flex-col items-center">
-                <div class="w-64 h-64 bg-gray-900 rounded-lg shadow-2xl mb-6 overflow-hidden">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/2/21/Sidhu_Moose_Wala_at_BritAsia_TV_World_Music_Awards_2019.jpg" class="w-full h-full object-cover grayscale opacity-80" alt="Sidhu">
+    <section id="music" class="bg-[#050505]">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-xs mono tracking-[1em] uppercase opacity-40 mb-10 text-center">MooseTape Official Hub</h2>
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="glass p-10 flex flex-col justify-center">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.youtube.com/@SidhuMooseWalaOfficial" class="w-32 mb-6 grayscale hover:grayscale-0 transition-all">
+                    <h3 class="text-4xl font-black mb-2">SIDHU MOOSE WALA</h3>
+                    <p class="text-green-500 font-bold mono text-sm mb-6">Original Audio Interface</p>
+                    <p class="text-gray-500 text-sm leading-relaxed">Streaming the legacy of the legend. Ad-free streaming is best experienced via YouTube Premium or official embeds. Rest in Power.</p>
                 </div>
-                <h3 id="current-title" class="text-xl font-black uppercase">Level Up</h3>
-                <p id="current-artist" class="text-xs text-green-500 mono mb-6">Sidhu Moose Wala</p>
-                <audio id="audio-player" src=""></audio>
-                <div class="flex items-center gap-8 text-2xl">
-                    <button onclick="prevTrack()" class="hover:text-green-500 transition">⏮</button>
-                    <button id="play-pause" onclick="togglePlay()" class="w-16 h-16 bg-white text-black rounded-full flex items-center justify-center hover:bg-green-500 transition">▶</button>
-                    <button onclick="nextTrack()" class="hover:text-green-500 transition">⏭</button>
+                <div class="glass p-6 space-y-4">
+                    <div id="player-container">
+                        <iframe id="moose-player" width="100%" height="250" src="https://www.youtube.com/embed/n_FCrCQ6-V0" title="Sidhu Moose Wala" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="h-[200px] overflow-y-auto pr-2 space-y-2">
+                        <div class="track-btn font-bold text-xs" onclick="changeSong('n_FCrCQ6-V0')">295 // SIDHU MOOSE WALA</div>
+                        <div class="track-btn font-bold text-xs" onclick="changeSong('6X7T695S5p0')">THE LAST RIDE</div>
+                        <div class="track-btn font-bold text-xs" onclick="changeSong('cl0a3i2wDzQ')">LEVELS</div>
+                        <div class="track-btn font-bold text-xs" onclick="changeSong('T8S_Yv-NNoM')">LEGEND</div>
+                        <div class="track-btn font-bold text-xs" onclick="changeSong('M7-P0GshFpE')">DILLAR</div>
+                    </div>
                 </div>
             </div>
-            <div class="glass p-6 h-[450px] overflow-y-auto space-y-2" id="playlist-container">
-                </div>
         </div>
     </section>
 
-    <section class="py-32 px-10 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto gap-20">
-        <div class="aadhaar-wrapper">
+    <section class="flex flex-col items-center justify-center">
+        <div class="aadhaar-wrapper mb-10">
             <div class="aadhaar-card">
                 <div class="card-side p-4 flex flex-col">
                     <div class="h-1.5 w-full bg-gradient-to-r from-orange-500 via-white to-green-600 mb-3 rounded-full"></div>
                     <div class="flex justify-between items-start mb-4">
-                        <div class="text-[8px] font-bold text-red-700">भारत सरकार<br><span class="text-gray-500">Govt. of India</span></div>
+                        <div class="text-[8px] font-bold text-red-700 uppercase">भारत सरकार / Govt. of India</div>
                         <img src="https://upload.wikimedia.org/wikipedia/en/c/cf/Aadhaar_Logo.svg" class="w-8">
                     </div>
                     <div class="flex gap-4 mt-4">
-                        <div class="w-16 h-20 bg-gray-100 border rounded flex items-center justify-center text-[6px] text-gray-300">PH_IMG</div>
+                        <div class="w-16 h-20 bg-gray-100 rounded border"></div>
                         <div class="text-[10px]">
                             <p class="font-black text-xs uppercase">Parth Hiray</p>
                             <p class="text-gray-500 mt-1 uppercase">DOB: 2009</p>
@@ -116,7 +119,7 @@
                     <p class="mt-auto text-center font-bold tracking-[0.3em] text-gray-800 text-lg">XXXX XXXX 2026</p>
                 </div>
                 <div class="card-side card-back p-5 flex flex-col">
-                    <p class="text-[9px] text-gray-700 border-b pb-2">Address: Sector 11, Digital Heights, Maharashtra, 400001</p>
+                    <p class="text-[9px] text-gray-700 border-b pb-2">Address: Sector 11, Digital Heights, MH, 400001</p>
                     <div class="mt-auto flex justify-between items-end">
                         <p class="text-[10px] mono text-gray-400">TEL: 6969696969</p>
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=tel:6969696969" class="w-16 h-16 border p-1 bg-white">
@@ -124,59 +127,21 @@
                 </div>
             </div>
         </div>
-        <div class="max-w-md">
-            <h2 class="text-4xl font-black mb-6">Verified Architect</h2>
-            <p class="opacity-50 text-sm leading-relaxed mb-8 font-medium">Grade XI student based in India. Specialized in creating digital ecosystems that blend high-speed logic with luxury design.</p>
-        </div>
+        <p class="text-center text-xs opacity-50 uppercase tracking-widest">Flip to Verify</p>
     </section>
 
     <footer class="py-20 flex flex-col items-center">
-        <form onsubmit="handleInsta(event)" class="w-full max-w-lg glass p-10 space-y-4">
-            <h2 class="text-3xl font-black mb-6 uppercase tracking-tighter">Initialize Link</h2>
-            <input type="text" placeholder="Identity" required class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-green-500">
-            <button class="w-full py-5 bg-white text-black font-black uppercase text-xs tracking-widest rounded-xl hover:bg-green-500 hover:text-white transition-all">Submit Protocol</button>
-        </form>
-        <p class="mt-20 text-[9px] mono text-gray-500 tracking-[1em] uppercase">PARTH HIRAY // © 2026</p>
+        <a href="https://instagram.com/parthhiray" class="glass px-10 py-5 font-black uppercase tracking-[1em] hover:bg-white hover:text-black transition-all">Initialize Instagram</a>
+        <p class="mt-20 text-[9px] mono text-gray-500 tracking-[1em] uppercase text-center">Parth Hiray // XI // © 2026</p>
     </footer>
 
     <script>
-        // Music Data
-        const tracks = [
-            { title: "295", artist: "Sidhu Moose Wala", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-            { title: "The Last Ride", artist: "Sidhu Moose Wala", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-            { title: "Levels", artist: "Sidhu Moose Wala", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
-            { title: "Legend", artist: "Sidhu Moose Wala", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" }
-        ];
-
-        let trackIndex = 0;
-        const audio = document.getElementById('audio-player');
-        const playlist = document.getElementById('playlist-container');
-
-        function loadPlaylist() {
-            playlist.innerHTML = tracks.map((t, i) => `
-                <div class="track-item p-4 flex justify-between items-center ${i === trackIndex ? 'active-track' : ''}" onclick="setTrack(${i})">
-                    <span class="text-xs uppercase font-bold">${t.title}</span>
-                    <span class="text-[10px] mono opacity-50">${t.artist}</span>
-                </div>
-            `).join('');
-            document.getElementById('current-title').innerText = tracks[trackIndex].title;
-            audio.src = tracks[trackIndex].src;
-        }
-
-        function togglePlay() {
-            if (audio.paused) { audio.play(); document.getElementById('play-pause').innerText = "⏸"; }
-            else { audio.pause(); document.getElementById('play-pause').innerText = "▶"; }
-        }
-
-        function setTrack(i) { trackIndex = i; loadPlaylist(); audio.play(); document.getElementById('play-pause').innerText = "⏸"; }
-        function nextTrack() { trackIndex = (trackIndex + 1) % tracks.length; setTrack(trackIndex); }
-        function prevTrack() { trackIndex = (trackIndex - 1 + tracks.length) % tracks.length; setTrack(trackIndex); }
-
-        // Typing Logic
+        // Typing Function
         function runTyping(id, texts) {
             let i = 0, j = 0, del = false;
             function type() {
                 const el = document.getElementById(id);
+                if(!el) return;
                 const full = texts[i];
                 el.innerText = del ? full.substring(0, j--) : full.substring(0, j++);
                 if (!del && j > full.length) setTimeout(() => del = true, 1500);
@@ -186,15 +151,19 @@
             type();
         }
 
-        runTyping('typewriter-name', ['Parth Hiray.', 'Sidhu Fan.', 'PH_2026.']);
-        runTyping('type-skill-1', ['Web Apps', 'React Engine', 'Fullstack']);
-        runTyping('type-skill-2', ['UI Motion', 'GSAP Magic', 'Interaction']);
-        runTyping('type-skill-3', ['Branding', 'Visual ID', 'Logo Arch']);
+        // Song Change Function
+        function changeSong(vid) {
+            document.getElementById('moose-player').src = `https://www.youtube.com/embed/${vid}?autoplay=1`;
+        }
 
-        loadPlaylist();
+        // Init
+        runTyping('typewriter-name', ['Parth Hiray.', 'Moose Wala Legacy.', 'PH Protocol.']);
+        runTyping('type-skill-1', ['Web Apps', 'React.js', 'Logic']);
+        runTyping('type-skill-2', ['UI Motion', 'Animation', 'GSAP']);
+        runTyping('type-skill-3', ['Branding', 'Graphics', 'Identity']);
+
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
-        function toggleMode() { document.getElementById('main').classList.toggle('light-mode'); }
-        function handleInsta(e) { e.preventDefault(); window.location.href = "https://instagram.com/parthhiray"; }
+
         function downloadVCard() {
             const v = "BEGIN:VCARD\nVERSION:3.0\nFN:Parth Hiray\nTEL;6969696969\nEND:VCARD";
             const b = new Blob([v], { type: "text/vcard" });
