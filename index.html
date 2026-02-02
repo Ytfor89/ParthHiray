@@ -3,45 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PARTH HIRAY // MODE_DUAL</title>
+    <title>PARTH HIRAY // MOOSE_PROTOCOL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Space+Mono&display=swap');
         
-        :root { --bg: #000; --text: #fff; --glass: rgba(255,255,255,0.02); --border: rgba(255,255,255,0.1); }
-        .light-mode { --bg: #f5f5f7; --text: #000; --glass: rgba(0,0,0,0.03); --border: rgba(0,0,0,0.1); }
+        :root { --bg: #000; --text: #fff; --glass: rgba(255,255,255,0.03); --spotify: #1DB954; }
+        .light-mode { --bg: #f5f5f7; --text: #000; --glass: rgba(0,0,0,0.05); }
 
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; transition: background 0.5s, color 0.5s; overflow-x: hidden; scroll-behavior: smooth; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; transition: 0.5s; overflow-x: hidden; scroll-behavior: smooth; }
         .mono { font-family: 'Space Mono', monospace; }
-
-        .glass { background: var(--glass); border: 1px solid var(--border); backdrop-filter: blur(20px); border-radius: 20px; transition: 0.3s; }
-        .glass:hover { border-color: #FF9933; }
-
-        /* RGB Dynamic Glow */
+        .glass { background: var(--glass); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 20px; transition: 0.3s; }
+        
+        /* RGB Typing Title */
         .rgb-text {
-            background: linear-gradient(to right, #ff3333, #33ff33, #3333ff, #ff3333);
+            background: linear-gradient(to right, #ff0000, #00ff00, #0000ff, #ff0000);
             background-size: 200% auto;
             color: transparent;
             -webkit-background-clip: text;
             background-clip: text;
-            animation: chroma 4s linear infinite;
+            animation: chroma 3s linear infinite;
         }
         @keyframes chroma { to { background-position: 200% center; } }
 
-        /* Aadhaar Wrapper */
+        /* Aadhaar Flip */
         .aadhaar-wrapper { perspective: 1000px; width: 340px; height: 210px; }
-        .aadhaar-card { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
+        .aadhaar-card { position: relative; width: 100%; height: 100%; transition: 0.8s; transform-style: preserve-3d; }
         .aadhaar-wrapper:hover .aadhaar-card { transform: rotateY(180deg); }
         .card-side { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; background: #fff; color: #333; }
         .card-back { transform: rotateY(180deg); background: #fdfdfd; }
 
-        .mode-toggle { position: fixed; bottom: 30px; right: 30px; z-index: 100; padding: 12px 24px; border-radius: 50px; font-weight: bold; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
+        /* Spotify Player Elements */
+        .track-item { cursor: pointer; transition: 0.2s; border-radius: 8px; }
+        .track-item:hover { background: rgba(29, 185, 84, 0.1); }
+        .active-track { color: var(--spotify); font-weight: bold; }
+        
+        .mode-toggle { position: fixed; bottom: 30px; right: 30px; z-index: 100; padding: 12px 24px; border-radius: 50px; font-weight: bold; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
     </style>
 </head>
 <body id="main">
 
-    <button onclick="toggleMode()" class="mode-toggle glass uppercase" id="modeBtn">Switch to Prism</button>
+    <button onclick="toggleMode()" class="mode-toggle glass" id="modeBtn">Switch to Prism</button>
 
     <header class="fixed top-0 w-full p-8 flex justify-between items-center z-50 mix-blend-difference">
         <span class="font-black text-2xl tracking-tighter uppercase" id="typewriter-name"></span>
@@ -51,13 +54,49 @@
     <section class="min-h-screen flex flex-col justify-center px-10 md:px-24">
         <p class="text-orange-500 font-bold tracking-[0.8em] mb-4 text-[10px] uppercase">Protocol 2026</p>
         <h1 class="text-7xl md:text-[10rem] font-black tracking-tighter leading-none mb-10">PARTH<br>HIRAY.</h1>
-        <div class="flex gap-4">
-            <button onclick="downloadVCard()" class="px-8 py-4 bg-orange-600 text-white font-bold text-[10px] uppercase tracking-widest rounded-full hover:bg-orange-500 shadow-xl transition-all">Get Contact</button>
+        <div class="flex gap-4 mb-20">
+            <button onclick="downloadVCard()" class="px-8 py-4 bg-white text-black font-bold text-[10px] uppercase tracking-widest rounded-full hover:bg-orange-500 transition-all">Get Contact</button>
             <a href="#services" class="px-8 py-4 glass text-[10px] font-bold uppercase tracking-widest rounded-full">Explore Logic</a>
+        </div>
+
+        <div id="services" class="grid md:grid-cols-3 gap-6 max-w-7xl">
+            <div class="glass p-10">
+                <h3 class="font-black text-2xl mb-4 rgb-text" id="type-skill-1"></h3>
+                <p class="text-sm opacity-50 font-medium">Next-gen fullstack architecture using React and Node protocols.</p>
+            </div>
+            <div class="glass p-10">
+                <h3 class="font-black text-2xl mb-4 rgb-text" id="type-skill-2"></h3>
+                <p class="text-sm opacity-50 font-medium">Buttery smooth UI transitions and high-fidelity GSAP motion.</p>
+            </div>
+            <div class="glass p-10">
+                <h3 class="font-black text-2xl mb-4 rgb-text" id="type-skill-3"></h3>
+                <p class="text-sm opacity-50 font-medium">Visual identity design for high-performance digital brands.</p>
+            </div>
         </div>
     </section>
 
-    <section class="py-20 px-10 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto gap-20">
+    <section class="py-20 px-10 max-w-7xl mx-auto">
+        <h2 class="text-xs mono tracking-[1em] uppercase opacity-40 mb-10">MooseTape Protocol</h2>
+        <div class="grid md:grid-cols-2 gap-10 items-start">
+            <div class="glass p-8 flex flex-col items-center">
+                <div class="w-64 h-64 bg-gray-900 rounded-lg shadow-2xl mb-6 overflow-hidden">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/2/21/Sidhu_Moose_Wala_at_BritAsia_TV_World_Music_Awards_2019.jpg" class="w-full h-full object-cover grayscale opacity-80" alt="Sidhu">
+                </div>
+                <h3 id="current-title" class="text-xl font-black uppercase">Level Up</h3>
+                <p id="current-artist" class="text-xs text-green-500 mono mb-6">Sidhu Moose Wala</p>
+                <audio id="audio-player" src=""></audio>
+                <div class="flex items-center gap-8 text-2xl">
+                    <button onclick="prevTrack()" class="hover:text-green-500 transition">⏮</button>
+                    <button id="play-pause" onclick="togglePlay()" class="w-16 h-16 bg-white text-black rounded-full flex items-center justify-center hover:bg-green-500 transition">▶</button>
+                    <button onclick="nextTrack()" class="hover:text-green-500 transition">⏭</button>
+                </div>
+            </div>
+            <div class="glass p-6 h-[450px] overflow-y-auto space-y-2" id="playlist-container">
+                </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-10 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto gap-20">
         <div class="aadhaar-wrapper">
             <div class="aadhaar-card">
                 <div class="card-side p-4 flex flex-col">
@@ -67,7 +106,7 @@
                         <img src="https://upload.wikimedia.org/wikipedia/en/c/cf/Aadhaar_Logo.svg" class="w-8">
                     </div>
                     <div class="flex gap-4 mt-4">
-                        <div class="w-16 h-20 bg-gray-100 border rounded"></div>
+                        <div class="w-16 h-20 bg-gray-100 border rounded flex items-center justify-center text-[6px] text-gray-300">PH_IMG</div>
                         <div class="text-[10px]">
                             <p class="font-black text-xs uppercase">Parth Hiray</p>
                             <p class="text-gray-500 mt-1 uppercase">DOB: 2009</p>
@@ -87,80 +126,80 @@
         </div>
         <div class="max-w-md">
             <h2 class="text-4xl font-black mb-6">Verified Architect</h2>
-            <p class="opacity-50 text-sm leading-relaxed mb-8">Specializing in high-end UI/UX architecture and full-stack development. Every system is built on a foundation of clean code and premium aesthetics.</p>
+            <p class="opacity-50 text-sm leading-relaxed mb-8 font-medium">Grade XI student based in India. Specialized in creating digital ecosystems that blend high-speed logic with luxury design.</p>
         </div>
     </section>
 
-    <section id="services" class="py-32 px-10 max-w-7xl mx-auto grid md:grid-cols-3 gap-6">
-        <div class="glass p-10">
-            <h3 class="font-black text-xl mb-4 rgb-text" id="type-skill-1"></h3>
-            <p class="text-sm opacity-50">High-speed digital products built with modern React frameworks.</p>
-        </div>
-        <div class="glass p-10">
-            <h3 class="font-black text-xl mb-4 rgb-text" id="type-skill-2"></h3>
-            <p class="text-sm opacity-50">Advanced GSAP animations that bring static layouts to life.</p>
-        </div>
-        <div class="glass p-10">
-            <h3 class="font-black text-xl mb-4 rgb-text" id="type-skill-3"></h3>
-            <p class="text-sm opacity-50">Establishing a powerful visual identity for tech companies.</p>
-        </div>
-    </section>
-
-    <section class="py-32 flex flex-col items-center">
+    <footer class="py-20 flex flex-col items-center">
         <form onsubmit="handleInsta(event)" class="w-full max-w-lg glass p-10 space-y-4">
             <h2 class="text-3xl font-black mb-6 uppercase tracking-tighter">Initialize Link</h2>
-            <input type="text" placeholder="Identity" required class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-orange-500">
-            <textarea placeholder="Message" required class="w-full bg-white/5 border border-white/10 p-4 rounded-xl h-40 outline-none focus:border-orange-500"></textarea>
-            <button class="w-full py-5 bg-white text-black font-black uppercase text-xs tracking-widest rounded-xl hover:bg-orange-600 hover:text-white transition-all">Submit Protocol</button>
+            <input type="text" placeholder="Identity" required class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-green-500">
+            <button class="w-full py-5 bg-white text-black font-black uppercase text-xs tracking-widest rounded-xl hover:bg-green-500 hover:text-white transition-all">Submit Protocol</button>
         </form>
-        <footer class="mt-40 text-[9px] mono text-gray-500 tracking-[1em] uppercase">PARTH HIRAY // © 2026</footer>
-    </section>
+        <p class="mt-20 text-[9px] mono text-gray-500 tracking-[1em] uppercase">PARTH HIRAY // © 2026</p>
+    </footer>
 
     <script>
-        // Writing/Typing Engine
-        function typeWriter(id, textArray, speed = 100) {
-            let i = 0; let j = 0; let isDeleting = false;
-            function run() {
+        // Music Data
+        const tracks = [
+            { title: "295", artist: "Sidhu Moose Wala", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { title: "The Last Ride", artist: "Sidhu Moose Wala", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { title: "Levels", artist: "Sidhu Moose Wala", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+            { title: "Legend", artist: "Sidhu Moose Wala", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" }
+        ];
+
+        let trackIndex = 0;
+        const audio = document.getElementById('audio-player');
+        const playlist = document.getElementById('playlist-container');
+
+        function loadPlaylist() {
+            playlist.innerHTML = tracks.map((t, i) => `
+                <div class="track-item p-4 flex justify-between items-center ${i === trackIndex ? 'active-track' : ''}" onclick="setTrack(${i})">
+                    <span class="text-xs uppercase font-bold">${t.title}</span>
+                    <span class="text-[10px] mono opacity-50">${t.artist}</span>
+                </div>
+            `).join('');
+            document.getElementById('current-title').innerText = tracks[trackIndex].title;
+            audio.src = tracks[trackIndex].src;
+        }
+
+        function togglePlay() {
+            if (audio.paused) { audio.play(); document.getElementById('play-pause').innerText = "⏸"; }
+            else { audio.pause(); document.getElementById('play-pause').innerText = "▶"; }
+        }
+
+        function setTrack(i) { trackIndex = i; loadPlaylist(); audio.play(); document.getElementById('play-pause').innerText = "⏸"; }
+        function nextTrack() { trackIndex = (trackIndex + 1) % tracks.length; setTrack(trackIndex); }
+        function prevTrack() { trackIndex = (trackIndex - 1 + tracks.length) % tracks.length; setTrack(trackIndex); }
+
+        // Typing Logic
+        function runTyping(id, texts) {
+            let i = 0, j = 0, del = false;
+            function type() {
                 const el = document.getElementById(id);
-                const current = textArray[i];
-                if (isDeleting) {
-                    el.innerText = current.substring(0, j - 1); j--;
-                } else {
-                    el.innerText = current.substring(0, j + 1); j++;
-                }
-                if (!isDeleting && j === current.length) {
-                    setTimeout(() => isDeleting = true, 1500);
-                } else if (isDeleting && j === 0) {
-                    isDeleting = false; i = (i + 1) % textArray.length;
-                }
-                setTimeout(run, isDeleting ? 50 : speed);
+                const full = texts[i];
+                el.innerText = del ? full.substring(0, j--) : full.substring(0, j++);
+                if (!del && j > full.length) setTimeout(() => del = true, 1500);
+                else if (del && j < 0) { del = false; i = (i+1)%texts.length; j = 0; }
+                setTimeout(type, del ? 50 : 100);
             }
-            run();
+            type();
         }
 
-        // Apply Writing Effects
-        typeWriter('typewriter-name', ['Parth Hiray.', 'The Architect.', 'Grade XI.']);
-        typeWriter('type-skill-1', ['Web Apps', 'Fullstack Dev', 'React Engine']);
-        typeWriter('type-skill-2', ['UI Motion', 'GSAP Animation', 'Interaction']);
-        typeWriter('type-skill-3', ['Branding', 'Visual Identity', 'Logo Arch']);
+        runTyping('typewriter-name', ['Parth Hiray.', 'Sidhu Fan.', 'PH_2026.']);
+        runTyping('type-skill-1', ['Web Apps', 'React Engine', 'Fullstack']);
+        runTyping('type-skill-2', ['UI Motion', 'GSAP Magic', 'Interaction']);
+        runTyping('type-skill-3', ['Branding', 'Visual ID', 'Logo Arch']);
 
-        // System Functions
+        loadPlaylist();
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
-        function toggleMode() {
-            document.getElementById('main').classList.toggle('light-mode');
-            document.getElementById('modeBtn').innerText = document.getElementById('main').classList.contains('light-mode') ? "Switch to Stealth" : "Switch to Prism";
-        }
-
+        function toggleMode() { document.getElementById('main').classList.toggle('light-mode'); }
+        function handleInsta(e) { e.preventDefault(); window.location.href = "https://instagram.com/parthhiray"; }
         function downloadVCard() {
-            const v = "BEGIN:VCARD\nVERSION:3.0\nFN:Parth Hiray\nTEL;TYPE=CELL:6969696969\nEND:VCARD";
+            const v = "BEGIN:VCARD\nVERSION:3.0\nFN:Parth Hiray\nTEL;6969696969\nEND:VCARD";
             const b = new Blob([v], { type: "text/vcard" });
-            const u = window.URL.createObjectURL(b);
-            const a = document.createElement('a'); a.href = u; a.download = 'Parth_Hiray.vcf'; a.click();
-        }
-
-        function handleInsta(e) {
-            e.preventDefault();
-            gsap.to("body", { opacity: 0, duration: 1, onComplete: () => { window.location.href = "https://instagram.com/parthhiray"; }});
+            const u = URL.createObjectURL(b);
+            const a = document.createElement('a'); a.href = u; a.download = 'Parth.vcf'; a.click();
         }
     </script>
 </body>
