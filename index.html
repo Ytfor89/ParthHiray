@@ -2,39 +2,39 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Parth Hiray | Cyber Portfolio</title>
+<title>Parth Hiray | Futuristic Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,system-ui;}
-body{
-  background:#02040a;
-  color:#fff;
-  overflow-x:hidden;
-}
 :root{
   --neon:#00f6ff;
   --pink:#ff2cdf;
+  --bg:#05070f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Orbitron,system-ui;
+  background:radial-gradient(circle at top,#080c1a,#02040a);
+  color:#fff;
+  overflow-x:hidden;
 }
 
-/* ===== LOADER ===== */
-#loader{
+/* ===== BACKGROUND GRID ===== */
+body::before{
+  content:"";
   position:fixed;inset:0;
-  background:#02040a;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
+  background:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:60px 60px;
+  z-index:-1;
 }
-#loader h1{color:var(--neon);letter-spacing:4px;}
-.bar{width:260px;height:8px;border:1px solid var(--neon);margin-top:20px;}
-.fill{height:100%;width:0;background:var(--neon);animation:load 3s forwards;}
-@keyframes load{to{width:100%;}}
 
 /* ===== HERO ===== */
 .hero{
-  height:100vh;
+  min-height:100vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -42,240 +42,188 @@ body{
   text-align:center;
 }
 .hero h1{
-  font-size:3.6rem;
+  font-size:3.5rem;
   text-shadow:0 0 35px var(--neon);
 }
-.hero span{color:var(--neon);}
-.typing{margin-top:15px;color:#aaa;height:26px}
+.hero span{color:var(--neon)}
+.hero p{
+  margin-top:15px;
+  opacity:.8;
+}
 
+/* ===== BUTTON ===== */
 .btn{
-  margin-top:30px;
-  padding:15px 45px;
+  margin-top:35px;
+  padding:16px 50px;
   border:2px solid var(--neon);
+  border-radius:40px;
   background:transparent;
   color:#fff;
-  border-radius:40px;
   cursor:pointer;
   transition:.4s;
 }
 .btn:hover{
   background:var(--neon);
   color:#000;
-  box-shadow:0 0 35px var(--neon);
-  transform:scale(1.1);
+  box-shadow:0 0 40px var(--neon);
+  transform:scale(1.15);
 }
 
-/* ===== SECTIONS ===== */
-section{padding:90px 10%;}
-h2{text-align:center;font-size:2.5rem;color:var(--neon);margin-bottom:50px}
+/* ===== SECTION ===== */
+section{
+  padding:100px 8%;
+}
+section h2{
+  text-align:center;
+  color:var(--neon);
+  font-size:2.6rem;
+  margin-bottom:60px;
+}
 
-/* ===== FLIP CARDS ===== */
-.cards{
+/* ===== CARDS ===== */
+.grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
+  gap:35px;
 }
-
-.flip-card{
-  perspective:1000px;
-}
-.flip-inner{
-  position:relative;
-  width:100%;height:220px;
-  transform-style:preserve-3d;
-  transition:1s;
-}
-.flip-card:hover .flip-inner{
-  transform:rotateY(180deg);
-}
-.flip-face{
-  position:absolute;inset:0;
-  border-radius:20px;
-  padding:25px;
-  background:rgba(255,255,255,0.06);
+.card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:22px;
+  padding:30px;
   backdrop-filter:blur(14px);
-  border:1px solid rgba(255,255,255,.12);
-  backface-visibility:hidden;
+  position:relative;
+  transition:.6s;
 }
-.flip-face h3{color:var(--neon);}
-.back{
-  transform:rotateY(180deg);
-  background:linear-gradient(135deg,#16002a,#3a0ca3);
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:22px;
+  background:linear-gradient(120deg,transparent,var(--pink),transparent);
+  opacity:0;
+  transition:.6s;
+}
+.card:hover::before{opacity:.6}
+.card:hover{
+  transform:translateY(-18px) rotateX(8deg);
+  box-shadow:0 0 50px var(--pink);
 }
 
-/* ===== MAGNETIC HOVER ===== */
-.magnetic{
-  transition:transform .15s;
+/* ===== SKILLS ===== */
+.skill{
+  font-size:1.1rem;
 }
+.bar{
+  height:8px;
+  background:#111;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:10px;
+}
+.fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--neon),var(--pink));
+  width:0%;
+  animation:fill 2s forwards;
+}
+@keyframes fill{to{width:100%}}
+
+/* ===== DIGITAL ID ===== */
+.id{
+  max-width:360px;
+  margin:auto;
+  padding:25px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#0ff3,#f0f3);
+  text-align:center;
+  box-shadow:0 0 40px var(--neon);
+}
+.id h3{margin-bottom:10px}
+.id small{opacity:.8}
 
 /* ===== GAME ===== */
 .game{
   text-align:center;
 }
 #target{
-  width:80px;height:80px;
-  background:var(--neon);
+  width:90px;height:90px;
+  background:radial-gradient(circle,var(--neon),#003);
   border-radius:50%;
-  margin:30px auto;
-  box-shadow:0 0 30px var(--neon);
+  margin:40px auto;
   cursor:pointer;
-}
-#score{font-size:1.2rem;margin-top:10px}
-
-/* ===== TERMINAL ===== */
-.terminal{
-  background:#000;
-  border:2px solid var(--neon);
-  border-radius:12px;
-  padding:20px;
-  font-family:monospace;
   box-shadow:0 0 30px var(--neon);
+  animation:float 2s infinite alternate;
 }
-.terminal p{color:#0f0;margin-bottom:6px}
-.input{
-  width:100%;
-  background:black;
-  border:none;
-  color:#0f0;
-  outline:none;
-}
+@keyframes float{to{transform:translateY(-30px)}}
 
-/* ===== MOBILE OPTIMIZATION ===== */
-@media(max-width:768px){
-  .hero h1{font-size:2.6rem}
-  section{padding:70px 7%}
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;
+  padding:40px;
+  opacity:.6;
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOADER -->
-<div id="loader">
-  <h1>BOOTING SYSTEM</h1>
-  <div class="bar"><div class="fill"></div></div>
-</div>
-
-<!-- HERO -->
 <div class="hero">
   <h1>Parth <span>Hiray</span></h1>
-  <div class="typing" id="typing"></div>
-  <button class="btn" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
-    ENTER SYSTEM
-  </button>
+  <p>17 • Class 11 • Future Tech Creator</p>
+  <button class="btn" onclick="document.getElementById('about').scrollIntoView()">Enter System</button>
 </div>
 
-<!-- ABOUT -->
 <section id="about">
 <h2>About Me</h2>
-<div class="cards">
-  <div class="flip-card magnetic">
-    <div class="flip-inner">
-      <div class="flip-face">
-        <h3>Who Am I</h3>
-        <p>17-year-old Class 11 student exploring tech & creative coding.</p>
-      </div>
-      <div class="flip-face back">
-        <p>I love futuristic UI, animations, and interactive experiences.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="flip-card magnetic">
-    <div class="flip-inner">
-      <div class="flip-face">
-        <h3>Mindset</h3>
-        <p>Curious learner & experimenter.</p>
-      </div>
-      <div class="flip-face back">
-        <p>Breaking things → rebuilding smarter.</p>
-      </div>
-    </div>
-  </div>
+<div class="grid">
+  <div class="card">🚀 Passionate about futuristic tech & coding</div>
+  <div class="card">📚 Studying in Class 11</div>
+  <div class="card">💡 Exploring AI, Web & Games</div>
 </div>
 </section>
 
-<!-- SKILLS -->
 <section>
 <h2>Skills</h2>
-<div class="cards">
-  <div class="flip-card magnetic">
-    <div class="flip-inner">
-      <div class="flip-face"><h3>HTML / CSS</h3></div>
-      <div class="flip-face back"><p>Strong foundation</p></div>
-    </div>
-  </div>
-  <div class="flip-card magnetic">
-    <div class="flip-inner">
-      <div class="flip-face"><h3>JavaScript</h3></div>
-      <div class="flip-face back"><p>Learning & building</p></div>
-    </div>
-  </div>
+<div class="grid">
+  <div class="card skill">HTML / CSS<div class="bar"><div class="fill"></div></div></div>
+  <div class="card skill">JavaScript<div class="bar"><div class="fill"></div></div></div>
+  <div class="card skill">Creative Design<div class="bar"><div class="fill"></div></div></div>
 </div>
 </section>
 
-<!-- GAME -->
 <section>
-<h2>Play a Game</h2>
-<div class="game">
-  <div id="target"></div>
-  <div id="score">Score: 0</div>
+<h2>Projects</h2>
+<div class="grid">
+  <div class="card">⚡ Cyber Portfolio</div>
+  <div class="card">🎮 Browser Game</div>
+  <div class="card">🤖 AI Experiments</div>
 </div>
 </section>
 
-<!-- TERMINAL -->
 <section>
-<h2>AI Terminal</h2>
-<div class="terminal">
-  <p>> System online</p>
-  <p>> Type: about / skills / game</p>
-  <input class="input" id="cmd" placeholder="> enter command">
+<h2>Digital Student ID</h2>
+<div class="id">
+  <h3>Parth Hiray</h3>
+  <small>Digital Student ID • Sample</small>
 </div>
 </section>
+
+<section class="game">
+<h2>Mini Game</h2>
+<p>Click the glowing orb!</p>
+<div id="target"></div>
+<p id="score">Score: 0</p>
+</section>
+
+<footer>© 2026 Parth Hiray</footer>
 
 <script>
-/* LOADER */
-setTimeout(()=>loader.style.display="none",3200);
-
-/* TYPING */
-const texts=["Class 11 Student","Future Tech Creator","Cyber UI Designer"];
-let i=0,j=0,d=false;
-setInterval(()=>{
-  typing.textContent=texts[i].slice(0,j);
-  d?j--:j++;
-  if(j>texts[i].length+6)d=true;
-  if(j===0&&d){d=false;i=(i+1)%texts.length;}
-},120);
-
-/* MAGNETIC */
-document.querySelectorAll(".magnetic").forEach(el=>{
-  el.addEventListener("mousemove",e=>{
-    const r=el.getBoundingClientRect();
-    el.style.transform=`translate(${(e.clientX-r.left-r.width/2)/10}px,
-      ${(e.clientY-r.top-r.height/2)/10}px)`;
-  });
-  el.addEventListener("mouseleave",()=>el.style.transform="translate(0,0)");
-});
-
-/* GAME */
 let score=0;
-target.onclick=()=>{
+document.getElementById("target").onclick=()=>{
   score++;
-  scoreEl=document.getElementById("score");
-  scoreEl.textContent="Score: "+score;
-  target.style.marginLeft=Math.random()*200+"px";
-};
-
-/* TERMINAL */
-cmd.addEventListener("keydown",e=>{
-  if(e.key==="Enter"){
-    let v=cmd.value.toLowerCase();
-    if(v==="about")alert("Parth Hiray | 17 | Class 11");
-    if(v==="skills")alert("HTML CSS JS UI Design");
-    if(v==="game")alert("Play the neon click game above!");
-    cmd.value="";
-  }
-});
+  document.getElementById("score").innerText="Score: "+score;
+}
 </script>
 
 </body>
