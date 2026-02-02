@@ -1,194 +1,220 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>ParthOS v3.0</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:'Share Tech Mono',monospace;
-  background:black;color:#00ffcc;
-  overflow:hidden;
-}
-canvas{position:fixed;inset:0;z-index:-1}
-#boot{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;background:black;z-index:99}
-#boot p{animation:flicker 1.2s infinite}
-@keyframes flicker{50%{opacity:.4}}
-#desktop{display:none;width:100vw;height:100vh}
-.window{position:absolute;background:black;border:1px solid #00ffcc;box-shadow:0 0 20px #00ffcc}
-.bar{padding:6px;background:#001;cursor:move}
-.content{padding:10px;font-size:14px}
-#terminal{width:430px;top:50px;left:40px}
-#out{height:220px;overflow-y:auto}
-input{width:100%;background:black;border:none;color:#00ffcc;outline:none}
-#taskbar{position:absolute;bottom:0;width:100%;height:40px;background:rgba(0,0,0,.8);border-top:1px solid #00ffcc;display:flex;align-items:center}
-.btn{margin-left:10px;padding:5px 10px;border:1px solid #00ffcc;cursor:pointer}
-.btn:hover{background:#00ffcc;color:black}
-#game{display:none;top:90px;left:500px;width:260px}
-#orb{width:70px;height:70px;background:radial-gradient(circle,#0ff,#003);border-radius:50%;margin:20px auto;cursor:pointer}
-#world{display:none;top:90px;left:780px;width:220px;height:220px}
-#map{width:200px;height:200px;border:1px solid #0ff;position:relative}
-#player{width:12px;height:12px;background:#0ff;position:absolute;top:90px;left:90px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parth Hiray // Official Identity</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Montserrat:wght@800&display=swap');
+        
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* High-End 3D Card */
+        .aadhaar-container {
+            perspective: 2000px;
+            width: 380px;
+            height: 230px;
+        }
+
+        .aadhaar-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .aadhaar-container:hover .aadhaar-inner {
+            transform: rotateY(180deg);
+        }
+
+        .aadhaar-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 14px;
+            background: #ffffff;
+            color: #222;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        /* Front Card Details */
+        .aadhaar-front {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+        }
+
+        .tricolor-strip {
+            height: 6px;
+            background: linear-gradient(90deg, #FF9933 33.3%, #FFFFFF 33.3%, #FFFFFF 66.6%, #128807 66.6%);
+            width: 100%;
+        }
+
+        .aadhaar-back {
+            transform: rotateY(180deg);
+            background: #fafafa;
+        }
+
+        /* Interactive Elements */
+        .glass-player {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+        }
+
+        .btn-call {
+            background: #128807;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .btn-call:hover {
+            box-shadow: 0 0 20px rgba(18, 136, 7, 0.4);
+            transform: scale(1.02);
+        }
+
+        .input-premium {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+
+        .input-premium:focus {
+            border-color: #FF9933;
+            background: rgba(255,255,255,0.07);
+        }
+    </style>
 </head>
 <body>
 
-<canvas id="bg"></canvas>
+    <section class="h-screen flex flex-col justify-center items-center px-6">
+        <p class="text-[10px] tracking-[1em] text-gray-500 mb-4 uppercase">Identity Protocol 2026</p>
+        <h1 class="text-6xl md:text-8xl font-[Montserrat] font-extrabold tracking-tighter mb-4">PARTH HIRAY</h1>
+        <div class="h-[1px] w-20 bg-gradient-to-r from-orange-500 via-white to-green-600"></div>
+    </section>
 
-<div id="boot">
-  <p>Booting ParthOS v3.0</p>
-  <p>Loading AI core</p>
-  <p>Voice module ready</p>
-  <p>Access granted</p>
-</div>
+    <section class="min-h-screen flex flex-col justify-center items-center gap-10 bg-[#050505]">
+        <div class="aadhaar-container">
+            <div class="aadhaar-inner">
+                
+                <div class="aadhaar-face aadhaar-front flex flex-col">
+                    <div class="tricolor-strip"></div>
+                    <div class="p-5 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="text-[10px] font-bold text-red-700 leading-tight">
+                                भारत सरकार<br><span class="text-gray-700 font-medium">Government of India</span>
+                            </div>
+                            <img src="https://upload.wikimedia.org/wikipedia/en/c/cf/Aadhaar_Logo.svg" class="w-12">
+                        </div>
 
-<div id="desktop">
+                        <div class="flex gap-5 mt-4">
+                            <div class="w-20 h-24 bg-gray-200 border border-gray-300 rounded overflow-hidden flex items-center justify-center text-[8px] text-gray-400 font-bold uppercase">
+                                [ PHOTO ]
+                            </div>
+                            <div class="flex flex-col justify-center">
+                                <p class="text-sm font-bold text-gray-800">Parth Hiray</p>
+                                <p class="text-[10px] text-gray-600 mt-1">जन्म तिथि / DOB: 2009</p>
+                                <p class="text-[10px] text-gray-600">पुरुष / Male</p>
+                            </div>
+                        </div>
 
-<div class="window" id="terminal">
-<div class="bar">Terminal</div>
-<div class="content">
-<div id="out">
-<div>ParthOS v3.0</div>
-<div>Type <b>help</b> or use voice 🎤</div>
-</div>
-<input id="cmd">
-</div>
-</div>
+                        <div class="mt-auto border-t border-gray-200 pt-3 flex flex-col items-center">
+                            <p class="text-xl font-bold tracking-[0.2em] text-gray-900">XXXX XXXX 2026</p>
+                            <p class="text-[9px] text-blue-700 font-bold tracking-widest mt-1">मेरा आधार, मेरी पहचान</p>
+                        </div>
+                    </div>
+                </div>
 
-<div class="window" id="game">
-<div class="bar">Neon Reflex</div>
-<div class="content">
-<div id="orb"></div>
-<div id="score">Score: 0</div>
-</div>
-</div>
+                <div class="aadhaar-face aadhaar-back p-5 flex flex-col">
+                    <div class="flex justify-between">
+                        <div class="text-[9px] text-gray-700 leading-relaxed">
+                            <p class="font-bold border-b border-gray-200 mb-1 pb-1">Address / पता:</p>
+                            <p>S/O: Professional Architect,</p>
+                            <p>Sector 11, Digital Hub,</p>
+                            <p>Mumbai, Maharashtra, 400001</p>
+                            <p class="mt-2 font-bold text-green-700">Phone: 6969696969</p>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=tel:6969696969&choe=UTF-8" class="w-20 h-20 border p-1 bg-white">
+                            <p class="text-[6px] text-gray-400 mt-1 uppercase">Scan to Call</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-auto flex justify-between items-end border-t border-gray-100 pt-3">
+                        <div class="text-[7px] text-gray-400">
+                            <p>www.uidai.gov.in</p>
+                            <p>Help: 1947</p>
+                        </div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" class="w-8 opacity-20 grayscale">
+                    </div>
+                </div>
 
-<div class="window" id="world">
-<div class="bar">Mini World (WASD)</div>
-<div class="content">
-<div id="map"><div id="player"></div></div>
-</div>
-</div>
+            </div>
+        </div>
+        <p class="text-[10px] text-gray-600 uppercase tracking-[0.4em]">Hover to Rotate Identity Card</p>
+    </section>
 
-<div id="taskbar">
-<div class="btn" onclick="openGit()">GitHub</div>
-<div class="btn" onclick="toggleGame()">Game</div>
-<div class="btn" onclick="toggleWorld()">World</div>
-<div class="btn" onclick="hack()">Hack</div>
-<div class="btn" onclick="startVoice()">🎤 Voice</div>
-</div>
+    <section class="py-20 flex justify-center px-6">
+        <div class="glass-player w-full max-w-lg p-10 flex flex-col items-center">
+            <div class="w-16 h-16 rounded-full border border-gray-800 flex items-center justify-center mb-6">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-ping"></div>
+            </div>
+            <h3 class="text-sm tracking-widest uppercase mb-8">Audio Interface</h3>
+            <audio id="audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+            <button onclick="toggle()" id="playBtn" class="px-10 py-4 border border-white/20 rounded-full text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all">
+                Start Stream
+            </button>
+        </div>
+    </section>
 
-</div>
+    <section class="min-h-screen flex flex-col justify-center items-center px-6">
+        <div class="w-full max-w-lg">
+            <h2 class="text-3xl font-bold mb-10 text-center tracking-tighter">ESTABLISH CONNECTION</h2>
+            <form onsubmit="handleRedirect(event)" class="space-y-6">
+                <input type="text" placeholder="GUEST_NAME" class="w-full input-premium p-5 rounded-2xl outline-none text-sm">
+                <textarea placeholder="MESSAGE_CONTENT" class="w-full input-premium p-5 rounded-2xl h-40 outline-none text-sm"></textarea>
+                <button type="submit" class="w-full py-5 bg-white text-black font-bold rounded-2xl text-xs uppercase tracking-widest hover:invert transition-all">
+                    Send & Redirect to Instagram
+                </button>
+            </form>
+        </div>
+    </section>
 
-<script>
-/* BOOT */
-setTimeout(()=>{
-boot.style.display="none";
-desktop.style.display="block";
-},3000);
+    <footer class="py-10 text-center text-[9px] text-gray-700 tracking-[1em] uppercase">
+        Parth Hiray // 2026 // Digital Dossier
+    </footer>
 
-/* TERMINAL */
-cmd.onkeydown=e=>{
-if(e.key==="Enter"){
-let v=cmd.value.toLowerCase();
-out.innerHTML+=`<div>> ${v}</div>`;
-run(v);cmd.value="";out.scrollTop=9999;
-}}
-function run(c){
-if(c=="help")p("about skills projects github play hack ai voice");
-else if(c=="about")p("Parth Hiray, 17, Class 11. Cyber systems + games.");
-else if(c=="skills")p("JS, Creative Coding, Systems UI, Games");
-else if(c=="projects")p("ParthOS, Browser Games, Experimental Tech");
-else if(c=="github")openGit();
-else if(c=="play")toggleGame();
-else if(c=="hack")hack();
-else if(c=="ai")ai();
-else if(c=="voice")startVoice();
-else p("Unknown command");
-}
-function p(t){out.innerHTML+=`<div>${t}</div>`}
+    <script>
+        // Music Logic
+        const track = document.getElementById('audio');
+        const btn = document.getElementById('playBtn');
+        let isPlaying = false;
+        function toggle() {
+            if(!isPlaying) { track.play(); btn.innerText = "Stop Stream"; isPlaying = true; }
+            else { track.pause(); btn.innerText = "Start Stream"; isPlaying = false; }
+        }
 
-/* AI SIM */
-function ai(){
-let msgs=["Thinking...","Analyzing user","Conclusion: You are cracked 😈"];
-let i=0;
-let t=setInterval(()=>{
-p(msgs[i++]);if(i>=msgs.length)clearInterval(t);
-},700);
-}
-
-/* GAME */
-let score=0;
-orb.onclick=()=>{
-score++;scoreEl.innerText="Score: "+score;
-orb.style.transform=`translate(${Math.random()*80-40}px,${Math.random()*60-30}px)`
-}
-function toggleGame(){game.style.display=game.style.display=="none"?"block":"none"}
-
-/* WORLD */
-let px=90,py=90;
-document.onkeydown=e=>{
-if(world.style.display!="block")return;
-if(e.key=="w")py-=5;if(e.key=="s")py+=5;
-if(e.key=="a")px-=5;if(e.key=="d")px+=5;
-player.style.left=px+"px";player.style.top=py+"px";
-}
-function toggleWorld(){world.style.display=world.style.display=="none"?"block":"none"}
-
-/* HACK */
-function hack(){
-let i=0;
-let h=setInterval(()=>{
-p("BREACH_"+Math.random().toString(36).slice(2));
-if(i++>15)clearInterval(h);
-},80);
-}
-
-/* GITHUB */
-function openGit(){
-window.open("https://github.com/YOUR_GITHUB_USERNAME","_blank");
-}
-
-/* VOICE */
-function startVoice(){
-let r=new(window.SpeechRecognition||webkitSpeechRecognition)();
-r.onresult=e=>{
-let t=e.results[0][0].transcript.toLowerCase();
-p("🎤 "+t);run(t.includes("github")?"github":t.includes("hack")?"hack":t.includes("play")?"play":"about");
-}
-r.start();
-}
-
-/* DRAG */
-document.querySelectorAll(".window").forEach(w=>{
-let b=w.querySelector(".bar");
-b.onmousedown=e=>{
-let x=e.clientX,y=e.clientY;
-document.onmousemove=ev=>{
-w.style.left=w.offsetLeft+(ev.clientX-x)+"px";
-w.style.top=w.offsetTop+(ev.clientY-y)+"px";
-x=ev.clientX;y=ev.clientY;
-}
-document.onmouseup=()=>document.onmousemove=null;
-}
-});
-
-/* PARTICLES */
-let ctx=bg.getContext("2d"),P=[];
-for(let i=0;i<140;i++)P.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:Math.random()-0.5,vy:Math.random()-0.5});
-(function loop(){
-bg.width=innerWidth;bg.height=innerHeight;
-ctx.fillStyle="#00ffcc";
-P.forEach(p=>{
-p.x+=p.vx;p.y+=p.vy;
-if(p.x<0||p.x>innerWidth)p.vx*=-1;
-if(p.y<0||p.y>innerHeight)p.vy*=-1;
-ctx.fillRect(p.x,p.y,2,2);
-});
-requestAnimationFrame(loop);
-})();
-</script>
+        // Redirect Logic
+        function handleRedirect(e) {
+            e.preventDefault();
+            gsap.to("body", { 
+                opacity: 0, 
+                filter: "blur(20px)", 
+                duration: 1.2, 
+                onComplete: () => {
+                    window.location.href = "https://instagram.com/parthhiray";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
