@@ -1,79 +1,371 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parth Hiray - Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Parth Hiray | Futuristic Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,system-ui;}
+body{
+  background:#05070d;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ===== VARIABLES ===== */
+:root{
+  --neon:#00f6ff;
+  --purple:#9b5cff;
+}
+
+/* ===== LOADER ===== */
+#loader{
+  position:fixed;
+  inset:0;
+  background:#05070d;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+#loader h1{
+  color:var(--neon);
+  letter-spacing:3px;
+  margin-bottom:25px;
+}
+.bar{
+  width:260px;
+  height:8px;
+  border:1px solid var(--neon);
+  border-radius:20px;
+  overflow:hidden;
+}
+.progress{
+  width:0%;
+  height:100%;
+  background:var(--neon);
+  box-shadow:0 0 20px var(--neon);
+  animation:load 3s forwards;
+}
+@keyframes load{to{width:100%;}}
+
+/* ===== PARTICLES ===== */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+}
+
+/* ===== CURSOR ===== */
+.cursor{
+  width:25px;height:25px;
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  background:rgba(0,246,255,.4);
+  box-shadow:0 0 25px var(--neon);
+  transform:translate(-50%,-50%);
+  z-index:999;
+}
+
+/* ===== HERO ===== */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.hero h1{
+  font-size:3.2rem;
+  text-shadow:0 0 25px var(--neon);
+}
+.hero span{color:var(--neon);}
+.typing{
+  margin-top:15px;
+  font-size:1.2rem;
+  color:#aaa;
+  height:30px;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+  margin-top:35px;
+  padding:15px 40px;
+  background:transparent;
+  color:#fff;
+  border:2px solid var(--neon);
+  border-radius:40px;
+  cursor:pointer;
+  font-size:1rem;
+  position:relative;
+  overflow:hidden;
+  transition:.4s;
+}
+.btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--neon);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:.4s;
+  z-index:-1;
+}
+.btn:hover::after{transform:scaleX(1);}
+.btn:hover{color:#000;box-shadow:0 0 30px var(--neon);}
+
+/* ===== SECTIONS ===== */
+section{
+  padding:90px 10%;
+  opacity:0;
+  transform:translateY(60px);
+  transition:1s;
+}
+section.show{
+  opacity:1;
+  transform:translateY(0);
+}
+h2{
+  text-align:center;
+  font-size:2.4rem;
+  margin-bottom:40px;
+  color:var(--neon);
+}
+
+/* ===== CARDS ===== */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+.card{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:30px;
+  border:1px solid rgba(255,255,255,0.1);
+  transition:.4s;
+}
+.card:hover{
+  transform:translateY(-12px);
+  box-shadow:0 0 30px var(--purple);
+}
+
+/* ===== STUDENT ID ===== */
+.id-wrap{display:flex;justify-content:center;}
+.id-card{
+  width:320px;height:200px;
+  perspective:1000px;
+  transition:transform .2s ease;
+}
+.id-inner{
+  width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:1s;
+}
+.id-card:hover .id-inner{
+  transform:rotateY(180deg);
+}
+.id-face{
+  position:absolute;
+  inset:0;
+  border-radius:18px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  backface-visibility:hidden;
+  border:2px solid var(--neon);
+  box-shadow:0 0 25px var(--neon);
+  overflow:hidden;
+}
+.front{
+  background:linear-gradient(135deg,#0f2027,#203a43);
+}
+.back{
+  background:linear-gradient(135deg,#1a002a,#3a0ca3);
+  transform:rotateY(180deg);
+}
+
+/* ===== SCAN + QR ===== */
+.scan{
+  position:absolute;
+  top:0;left:0;
+  width:100%;
+  height:4px;
+  background:rgba(0,246,255,.8);
+  box-shadow:0 0 20px var(--neon);
+  animation:scan 3s linear infinite;
+}
+@keyframes scan{to{top:100%;}}
+
+.qr{
+  width:60px;height:60px;
+  margin:10px 0;
+  background:
+    linear-gradient(90deg,var(--neon) 50%,transparent 50%),
+    linear-gradient(var(--neon) 50%,transparent 50%);
+  background-size:8px 8px;
+  box-shadow:0 0 15px var(--neon);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  50%{transform:scale(1.1);}
+}
+
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;
+  padding:30px;
+  opacity:.6;
+}
+</style>
 </head>
+
 <body>
-    <header>
-      <h1>Parth Hiray</h1>
-      <p>Web Developer | Student</p>
-    </header>
 
-    <main>
-        <section id="about">
-            <h2>About Me</h2>
-            <p>Hi, I'm Parth Hiray, a 17-year-old student passionate about web development. I'm currently in 11th grade and love working with HTML, CSS, and JavaScript. I enjoy creating user-friendly and visually appealing websites. </p>
-        </section>
+<!-- LOADER -->
+<div id="loader">
+  <h1>INITIALIZING SYSTEM</h1>
+  <div class="bar"><div class="progress"></div></div>
+  <p style="opacity:.6;margin-top:10px;">Loading Futuristic Interface…</p>
+</div>
 
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <h3>Project 1</h3>
-                    <p>A simple project using HTML, CSS, JavaScript.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Project 2</h3>
-                    <p> Another project made with HTML, CSS, and some JavaScript</p>
-                </div>
-            </div>
-        </section>
+<canvas id="bg"></canvas>
+<div class="cursor"></div>
 
-        <section id="skills">
-            <h2>Skills</h2>
-            <ul>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-            </ul>
-        </section>
+<!-- HERO -->
+<div class="hero">
+  <h1>Parth <span>Hiray</span></h1>
+  <div class="typing" id="typing"></div>
+  <button class="btn" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+    Enter Portfolio
+  </button>
+</div>
 
-        <section id="contact">
-            <h2>Contact</h2>
-           <p>Email: <a href="mailto:parth.hiray@example.com">parth.hiray@example.com</a></p>
-           <p>Social Media</p>
-        </section>
+<!-- ABOUT -->
+<section id="about">
+<h2>About Me</h2>
+<div class="cards">
+  <div class="card">
+    I am a 17-year-old Class 11 student passionate about futuristic technology, animations, and creative web design.
+  </div>
+</div>
+</section>
 
-    </main>
+<!-- SKILLS -->
+<section>
+<h2>Skills</h2>
+<div class="cards">
+  <div class="card">HTML & CSS</div>
+  <div class="card">JavaScript (Learning)</div>
+  <div class="card">Futuristic UI Design</div>
+</div>
+</section>
 
-    <footer>
-        <p>&copy; 2026 Parth Hiray</p>
-    </footer>
+<!-- PROJECTS -->
+<section>
+<h2>Projects</h2>
+<div class="cards">
+  <div class="card">Animated Portfolio Website</div>
+  <div class="card">Creative School Projects</div>
+  <div class="card">Future Tech Concepts</div>
+</div>
+</section>
 
-    <div class="fake-aadhar-container">
-        <div class="card-wrapper">
-          <div class="card" id="aadhar-front">
-              <div class="card-content">
-                  <h3>Fake Aadhar Card</h3>
-                  <p>Name: Parth Hiray</p>
-                  <p>Age: 17</p>
-                  <p>Fake ID</p>
-              </div>
-          </div>
-          <div class="card" id="aadhar-back">
-              <div class="card-content">
-                  <h3>Back</h3>
-                   <img src="qr_code.png" alt="QR Code">
-              </div>
-          </div>
+<!-- STUDENT ID -->
+<section>
+<h2>National Student Identity (Concept)</h2>
+<p style="text-align:center;opacity:.6">Fictional · Not a government document</p><br>
+
+<div class="id-wrap">
+  <div class="id-card">
+    <div class="id-inner">
+
+      <div class="id-face front">
+        <div class="scan"></div>
+        <h3>STUDENT IDENTITY</h3>
+        <p>Name: Parth Hiray</p>
+        <p>Age: 17</p>
+        <p>Class: 11</p>
+        <p>Status: Active</p>
+        <div class="qr"></div>
+        <small>Education Sector · India</small>
       </div>
-    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="script.js"></script>
+      <div class="id-face back">
+        <h3>IDENTITY DATA</h3>
+        <p>ID TYPE: STUDENT (CONCEPT)</p>
+        <p>VALID USE: PORTFOLIO</p>
+        <small>⚠ NOT A REAL ID</small>
+      </div>
+
+    </div>
+  </div>
+</div>
+</section>
+
+<footer>© 2026 Parth Hiray · Futuristic Portfolio</footer>
+
+<script>
+/* LOADER */
+window.onload=()=>setTimeout(()=>loader.style.display="none",3200);
+
+/* TYPING */
+const texts=["Class 11 Student","Future Tech Creator","Futuristic Designer"];
+let i=0,j=0,d=false,el=document.getElementById("typing");
+setInterval(()=>{
+  el.textContent=texts[i].slice(0,j);
+  d?j--:j++;
+  if(j>texts[i].length+8)d=true;
+  if(j===0&&d){d=false;i=(i+1)%texts.length;}
+},120);
+
+/* CURSOR */
+const cursor=document.querySelector(".cursor");
+addEventListener("mousemove",e=>{
+  cursor.style.left=e.clientX+"px";
+  cursor.style.top=e.clientY+"px";
+});
+
+/* SECTION REVEAL */
+document.querySelectorAll("section").forEach(s=>{
+  addEventListener("scroll",()=>{
+    if(s.getBoundingClientRect().top<innerHeight-100)
+      s.classList.add("show");
+  });
+});
+
+/* 3D PARALLAX */
+const card=document.querySelector(".id-card");
+card.addEventListener("mousemove",e=>{
+  const r=card.getBoundingClientRect();
+  card.style.transform=`rotateX(${-(e.clientY-r.top-r.height/2)/15}deg)
+                        rotateY(${(e.clientX-r.left-r.width/2)/15}deg)`;
+});
+card.addEventListener("mouseleave",()=>card.style.transform="rotateX(0) rotateY(0)");
+
+/* PARTICLES */
+const c=document.getElementById("bg"),ctx=c.getContext("2d");
+resize();onresize=resize;
+let p=[...Array(90)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:Math.random()-.5,vy:Math.random()-.5}));
+function resize(){c.width=innerWidth;c.height=innerHeight;}
+(function anim(){
+  ctx.clearRect(0,0,c.width,c.height);
+  p.forEach(a=>{
+    a.x+=a.vx;a.y+=a.vy;
+    if(a.x<0||a.x>c.width)a.vx*=-1;
+    if(a.y<0||a.y>c.height)a.vy*=-1;
+    ctx.fillStyle="rgba(0,246,255,.6)";
+    ctx.fillRect(a.x,a.y,2,2);
+  });
+  requestAnimationFrame(anim);
+})();
+</script>
+
 </body>
 </html>
