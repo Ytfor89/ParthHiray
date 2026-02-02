@@ -3,153 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parth Hiray | Official Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <title>Parth Hiray's Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-        
-        body { 
-            background: radial-gradient(circle at top right, #0a0f1a, #000000); 
-            color: #fff; 
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #181818;
+            color: #ffffff;
+            overflow: hidden;
         }
-
-        /* Aadhaar Card Styling */
-        .card-container { perspective: 1000px; width: 360px; height: 220px; }
-        .card-inner {
-            width: 100%; height: 100%; position: relative;
-            transform-style: preserve-3d; transition: transform 0.8s ease;
+        h1 {
+            text-align: center;
+            margin-top: 50px;
         }
-        .card-container:hover .card-inner { transform: rotateY(180deg); }
-        
-        .card-face {
-            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
-            border-radius: 12px; background: #fff; color: #000; padding: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
-        
-        /* Official Aadhaar Colors */
-        .aadhaar-header { color: #b32d2e; font-weight: bold; font-size: 10px; }
-        .aadhaar-blue { color: #0055a4; }
-        
-        .card-back { transform: rotateY(180deg); background: #f9f9f9; }
-
-        /* Music Player */
-        .music-bar { width: 4px; background: #0055a4; border-radius: 2px; }
-
-        input::placeholder { color: rgba(255,255,255,0.3); }
+        button {
+            background-color: #3a3a3a;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            margin: 20px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.5);
+        }
+        .card-container {
+            perspective: 1000px;
+            margin-top: 50px;
+        }
+        .card {
+            width: 300px;
+            height: 200px;
+            margin: auto;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        .card:hover {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+        .card-front {
+            background: #222;
+        }
+        .card-back {
+            background: #444;
+            transform: rotateY(180deg);
+        }
     </style>
 </head>
 <body>
 
-    <section class="h-screen flex flex-col justify-center items-center text-center">
-        <h1 class="text-6xl font-bold tracking-tight mb-2">Parth Hiray</h1>
-        <p class="text-blue-400 tracking-widest uppercase text-sm">Grade XI | Student Specialist</p>
-        <div class="mt-10 animate-bounce text-gray-500 text-xs">Scroll to Explore</div>
-    </section>
-
-    <section class="min-h-screen flex flex-col justify-center items-center bg-white/5 py-20">
-        <h2 class="text-xl font-bold mb-10">Digital Identity</h2>
-        
+    <div class="container">
+        <h1>Parth Hiray's Portfolio</h1>
+        <button onClick="alert('Hello, welcome to my portfolio!')">Click Me</button>
         <div class="card-container">
-            <div class="card-inner">
-                <div class="card-face flex flex-col justify-between border-t-4 border-red-700">
-                    <div class="flex justify-between items-start">
-                        <div class="text-[8px] leading-tight">
-                            <span class="aadhaar-header">भारत सरकार</span><br>
-                            Government of India
-                        </div>
-                        <img src="https://upload.wikimedia.org/wikipedia/en/c/cf/Aadhaar_Logo.svg" class="w-10">
-                    </div>
-                    
-                    <div class="flex gap-4 items-center">
-                        <div class="w-16 h-20 bg-gray-200 border border-gray-300 rounded-sm"></div>
-                        <div class="text-[10px]">
-                            <p class="font-bold">Parth Hiray</p>
-                            <p>DOB: 2009</p>
-                            <p>Male / पुरुष</p>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t border-gray-300 pt-1 text-center">
-                        <p class="text-lg font-bold tracking-widest">XXXX XXXX 2026</p>
-                        <p class="text-[8px] aadhaar-blue font-bold">मेरा आधार, मेरी पहचान</p>
-                    </div>
+            <div class="card">
+                <div class="card-front">
+                    Fake Aadhar Card - Front
                 </div>
-
-                <div class="card-face card-back flex flex-col">
-                    <div class="border-b border-gray-300 pb-1 mb-2">
-                        <p class="text-[7px] text-gray-600">पता: सेक्टर 11, डिजिटल सिटी, महाराष्ट्र, भारत</p>
-                        <p class="text-[7px] text-gray-600">Address: Sector 11, Digital City, MH, India</p>
-                    </div>
-                    <div class="flex justify-between items-center mt-auto">
-                        <div class="w-16 h-16 bg-black"></div> <div class="text-[8px] text-right">
-                            <p>www.uidai.gov.in</p>
-                            <p class="font-bold">1947</p>
-                        </div>
-                    </div>
+                <div class="card-back">
+                    Fake Aadhar Card - Back
                 </div>
             </div>
         </div>
-        <p class="mt-6 text-gray-400 text-xs tracking-widest">HOVER TO FLIP</p>
-    </section>
+        <p>Age: 17 | Grade: 11th</p>
+    </div>
 
-    <section class="py-20 flex flex-col items-center">
-        <div class="w-full max-w-md bg-white/10 p-6 rounded-2xl backdrop-blur-md">
-            <p class="text-xs text-blue-400 mb-4 font-mono">AD-FREE_STREAM // PARTH_VIBES</p>
-            <div class="flex items-end justify-center gap-1 h-12 mb-6" id="viz">
-                </div>
-            <audio id="track" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-            <button onclick="toggleMusic()" id="mBtn" class="w-full py-3 border border-blue-500 rounded-xl text-sm font-bold hover:bg-blue-500 transition-all">
-                PLAY MUSIC
-            </button>
-        </div>
-    </section>
-
-    <section class="h-screen flex flex-col justify-center items-center px-10">
-        <div class="w-full max-w-lg">
-            <h3 class="text-2xl font-bold mb-6">Contact Parth</h3>
-            <form onsubmit="handleRedirect(event)" class="space-y-4">
-                <input type="text" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500">
-                <textarea placeholder="Your Message" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl h-32 outline-none focus:border-blue-500"></textarea>
-                <button type="submit" class="w-full py-4 bg-blue-600 rounded-xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-900/20">
-                    SEND & OPEN INSTAGRAM
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <script>
-        // Music Logic
-        const audio = document.getElementById('track');
-        let playing = false;
-        function toggleMusic() {
-            if(!playing) { audio.play(); document.getElementById('mBtn').innerText = "PAUSE"; playing = true; animate(); }
-            else { audio.pause(); document.getElementById('mBtn').innerText = "PLAY MUSIC"; playing = false; }
-        }
-
-        function animate() {
-            if(!playing) return;
-            const viz = document.getElementById('viz');
-            viz.innerHTML = '';
-            for(let i=0; i<20; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'music-bar';
-                bar.style.height = Math.random() * 40 + 'px';
-                viz.appendChild(bar);
-            }
-            setTimeout(animate, 100);
-        }
-
-        // Redirect Logic
-        function handleRedirect(e) {
-            e.preventDefault();
-            gsap.to("body", { opacity: 0, duration: 0.8, onComplete: () => {
-                window.location.href = "https://instagram.com/parthhiray";
-            }});
-        }
-    </script>
 </body>
 </html>
