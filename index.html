@@ -3,121 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PARTH HIRAY // XI ARCHITECT</title>
+    <title>PARTH HIRAY // MODE_DUAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Space+Mono&display=swap');
         
-        * { cursor: none; box-sizing: border-box; }
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        
-        #cursor { width: 20px; height: 20px; border: 1px solid #fff; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; }
-        #cursor-dot { width: 4px; height: 4px; background: #FF9933; border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; }
+        :root { --bg: #000; --text: #fff; --glass: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); }
+        .light-mode { --bg: #f5f5f7; --text: #000; --glass: rgba(0,0,0,0.03); --border: rgba(0,0,0,0.1); }
 
-        .aadhaar-box { perspective: 1200px; width: 360px; height: 220px; }
-        .aadhaar-card { position: relative; width: 100%; height: 100%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
-        .aadhaar-box:hover .aadhaar-card { transform: rotateY(180deg); }
-        .card-side { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; background: #fff; color: #333; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .side-back { transform: rotateY(180deg); background: #f9f9f9; }
-        .flag-strip { height: 5px; background: linear-gradient(90deg, #FF9933 33%, #fff 33%, #fff 66%, #128807 66%); }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; transition: background 0.5s, color 0.5s; overflow-x: hidden; }
+        .mono { font-family: 'Space Mono', monospace; }
 
-        .project-card { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 20px; transition: 0.4s; }
-        .project-card:hover { border-color: #FF9933; transform: translateY(-10px); }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .glass { background: var(--glass); border: 1px solid var(--border); backdrop-filter: blur(20px); border-radius: 20px; transition: 0.3s; }
+        .glass:hover { border-color: #FF9933; }
+
+        /* Aadhaar Logic */
+        .aadhaar-wrapper { perspective: 1000px; width: 340px; height: 210px; }
+        .aadhaar-card { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
+        .aadhaar-wrapper:hover .aadhaar-card { transform: rotateY(180deg); }
+        .card-side { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; background: #fff; color: #333; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .card-back { transform: rotateY(180deg); background: #fdfdfd; }
+
+        /* Marquee */
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee { display: flex; overflow: hidden; white-space: nowrap; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 0; }
+        .marquee-content { display: flex; animation: scroll 20s linear infinite; }
+
+        .mode-toggle { position: fixed; bottom: 30px; right: 30px; z-index: 100; padding: 12px 24px; border-radius: 50px; font-weight: bold; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
     </style>
 </head>
-<body>
+<body id="main">
 
-    <div id="cursor"></div>
-    <div id="cursor-dot"></div>
+    <button onclick="toggleMode()" class="mode-toggle glass uppercase" id="modeBtn">Switch to Prism</button>
 
-    <header class="fixed top-0 w-full p-6 flex justify-between items-center z-50 mix-blend-difference">
-        <span class="font-bold tracking-tighter text-xl">PH.26</span>
-        <div class="text-[10px] tracking-widest text-gray-400 font-mono" id="clock">00:00:00</div>
+    <header class="fixed top-0 w-full p-8 flex justify-between items-center z-50 mix-blend-difference">
+        <span class="font-black text-2xl tracking-tighter">PH.</span>
+        <div id="clock" class="text-[10px] mono">00:00:00</div>
     </header>
 
-    <section class="h-screen flex flex-col justify-center items-center">
-        <h1 class="text-8xl md:text-[10rem] font-black tracking-tighter">PARTH.</h1>
-        <p class="text-[10px] tracking-[1.5em] text-gray-500 uppercase">Grade 11 Architecture</p>
+    <section class="min-h-screen flex flex-col justify-center px-10 md:px-24">
+        <p class="text-orange-500 font-bold tracking-[0.8em] mb-4 text-[10px] uppercase">Protocol 2026</p>
+        <h1 class="text-7xl md:text-[10rem] font-black tracking-tighter leading-none mb-10">PARTH<br>HIRAY.</h1>
+        <div class="flex gap-4">
+            <button onclick="downloadVCard()" class="px-8 py-4 bg-orange-600 text-white font-bold text-[10px] uppercase tracking-widest rounded-full hover:bg-orange-500 shadow-xl transition-all">Get Contact</button>
+            <a href="#services" class="px-8 py-4 glass text-[10px] font-bold uppercase tracking-widest rounded-full">Explore Logic</a>
+        </div>
     </section>
 
-    <section class="py-32 px-6 flex flex-col items-center">
-        <div class="aadhaar-box">
+    <div class="marquee mb-20">
+        <div class="marquee-content gap-12 text-3xl font-black opacity-20 uppercase tracking-widest">
+            <span>Engineering</span> <span>Design</span> <span>Logic</span> <span>Grade XI</span> <span>Architecture</span> <span>Fullstack</span>
+            <span>Engineering</span> <span>Design</span> <span>Logic</span> <span>Grade XI</span> <span>Architecture</span> <span>Fullstack</span>
+        </div>
+    </div>
+
+    <section class="py-20 px-10 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto gap-20">
+        <div class="aadhaar-wrapper">
             <div class="aadhaar-card">
-                <div class="card-side">
-                    <div class="flag-strip"></div>
-                    <div class="p-4 flex flex-col h-full">
-                        <div class="flex justify-between items-start">
-                            <div class="text-[9px] font-bold text-red-700">भारत सरकार<br><span class="text-gray-600">Govt. of India</span></div>
-                            <img src="https://upload.wikimedia.org/wikipedia/en/c/cf/Aadhaar_Logo.svg" class="w-10">
-                        </div>
-                        <div class="flex gap-4 mt-8">
-                            <div class="w-16 h-20 bg-gray-100 rounded border flex items-center justify-center text-[7px] text-gray-300 font-bold uppercase">Parth_Pic</div>
-                            <div class="text-xs">
-                                <p class="font-bold">Parth Hiray</p>
-                                <p class="text-gray-500 mt-1 uppercase text-[8px]">DOB: 2009</p>
-                                <p class="text-gray-500 uppercase text-[8px]">Male / पुरुष</p>
-                            </div>
-                        </div>
-                        <div class="mt-auto border-t border-gray-100 pt-2 text-center text-lg font-bold tracking-widest">XXXX XXXX 2026</div>
+                <div class="card-side p-4 flex flex-col">
+                    <div class="h-1.5 w-full bg-gradient-to-r from-orange-500 via-white to-green-600 mb-3 rounded-full"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="text-[8px] font-bold text-red-700">भारत सरकार<br><span class="text-gray-500">Govt. of India</span></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/en/c/cf/Aadhaar_Logo.svg" class="w-8">
                     </div>
+                    <div class="flex gap-4 mt-4">
+                        <div class="w-16 h-20 bg-gray-100 border rounded"></div>
+                        <div class="text-[10px]">
+                            <p class="font-black text-xs uppercase">Parth Hiray</p>
+                            <p class="text-gray-500 mt-1">DOB: 2009</p>
+                            <p class="text-gray-500">Male / पुरुष</p>
+                        </div>
+                    </div>
+                    <p class="mt-auto text-center font-bold tracking-[0.3em] text-gray-800 text-lg">XXXX XXXX 2026</p>
                 </div>
-                <div class="card-side side-back p-4">
-                    <p class="text-[9px] font-bold border-b pb-1">Address / पता:</p>
-                    <p class="text-[8px] text-gray-600 mt-2">Sector 11, Digital Heights, Maharashtra, 400001</p>
-                    <div class="mt-12 flex justify-between items-end">
-                        <span class="text-[8px] text-gray-400">Scan to Call:<br><b>6969696969</b></span>
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=tel:6969696969" class="w-16 h-16 border bg-white p-1">
+                <div class="card-side card-back p-5 flex flex-col">
+                    <p class="text-[9px] text-gray-700 border-b pb-2">Address: Sector 11, Digital Heights, Maharashtra, 400001</p>
+                    <div class="mt-auto flex justify-between items-end">
+                        <p class="text-[10px] mono text-gray-400">TEL: 6969696969</p>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=tel:6969696969" class="w-16 h-16 border p-1 bg-white">
                     </div>
                 </div>
             </div>
         </div>
-        <p class="mt-10 text-[10px] tracking-widest text-gray-500 uppercase">Interactive ID // Flip to Scan</p>
-    </section>
-
-    <section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
-        <div class="project-card p-8">
-            <h3 class="font-bold text-orange-500 mb-4 tracking-widest uppercase text-xs">Skill_01</h3>
-            <p class="text-lg font-bold mb-2">Frontend Dev</p>
-            <p class="text-sm text-gray-500">GSAP, Tailwind, React, Motion UI.</p>
-        </div>
-        <div class="project-card p-8">
-            <h3 class="font-bold text-blue-500 mb-4 tracking-widest uppercase text-xs">Skill_02</h3>
-            <p class="text-lg font-bold mb-2">UX Design</p>
-            <p class="text-sm text-gray-500">Premium Dark Mode Architecture.</p>
-        </div>
-        <div class="project-card p-8">
-            <h3 class="font-bold text-green-500 mb-4 tracking-widest uppercase text-xs">Project_X</h3>
-            <p class="text-lg font-bold mb-2">Neural Portfolio</p>
-            <p class="text-sm text-gray-500">Current AI-integrated Web App.</p>
+        <div class="max-w-md">
+            <h2 class="text-4xl font-black mb-6">Verified Architect</h2>
+            <p class="opacity-50 text-sm leading-relaxed mb-8">Specializing in high-end UI/UX architecture and full-stack development. Every system is built on a foundation of clean code and premium aesthetics.</p>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glass p-4"><p class="text-[9px] mono uppercase opacity-50">Status</p><p class="font-bold">Active</p></div>
+                <div class="glass p-4"><p class="text-[9px] mono uppercase opacity-50">Year</p><p class="font-bold">2026</p></div>
+            </div>
         </div>
     </section>
 
-    <section class="h-screen flex flex-col justify-center items-center px-6 text-center">
-        <h2 class="text-4xl font-bold mb-10 tracking-tighter">ESTABLISH_LINK</h2>
-        <form onsubmit="finish(event)" class="w-full max-w-lg space-y-4">
-            <input type="text" placeholder="IDENTITY" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl outline-none focus:border-orange-500">
-            <textarea placeholder="MESSAGE" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl h-40 outline-none focus:border-orange-500"></textarea>
-            <button class="w-full py-5 bg-white text-black font-bold rounded-2xl text-xs uppercase tracking-widest hover:bg-orange-500">Submit & Redirect</button>
+    <section id="services" class="py-32 px-10 max-w-7xl mx-auto grid md:grid-cols-3 gap-6">
+        <div class="glass p-10">
+            <h3 class="font-black text-xl mb-4">Web Apps</h3>
+            <p class="text-sm opacity-50">High-speed digital products built with modern React frameworks.</p>
+        </div>
+        <div class="glass p-10">
+            <h3 class="font-black text-xl mb-4">UI Motion</h3>
+            <p class="text-sm opacity-50">Advanced GSAP animations that bring static layouts to life.</p>
+        </div>
+        <div class="glass p-10">
+            <h3 class="font-black text-xl mb-4">Branding</h3>
+            <p class="text-sm opacity-50">Establishing a powerful visual identity for tech companies.</p>
+        </div>
+    </section>
+
+    <section class="py-32 flex flex-col items-center">
+        <form onsubmit="handleInsta(event)" class="w-full max-w-lg glass p-10 space-y-4">
+            <h2 class="text-3xl font-black mb-6 uppercase tracking-tighter">Initialize Link</h2>
+            <input type="text" placeholder="Identity" required class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-orange-500">
+            <textarea placeholder="Message" required class="w-full bg-white/5 border border-white/10 p-4 rounded-xl h-40 outline-none focus:border-orange-500"></textarea>
+            <button class="w-full py-5 bg-white text-black font-black uppercase text-xs tracking-widest rounded-xl hover:bg-orange-600 hover:text-white transition-all">Submit Protocol</button>
         </form>
+        <footer class="mt-40 text-[9px] mono text-gray-500 tracking-[1em] uppercase">PARTH HIRAY // © 2026</footer>
     </section>
 
     <script>
-        // Cursor
-        document.addEventListener('mousemove', (e) => {
-            gsap.to('#cursor', { x: e.clientX - 10, y: e.clientY - 10, duration: 0.1 });
-            gsap.to('#cursor-dot', { x: e.clientX - 2, y: e.clientY - 2, duration: 0 });
-        });
-
-        // Live Clock
+        // Clock Logic
         setInterval(() => {
-            const now = new Date();
-            document.getElementById('clock').innerText = now.toLocaleTimeString();
+            document.getElementById('clock').innerText = new Date().toLocaleTimeString();
         }, 1000);
 
-        // Redirect
-        function finish(e) {
+        // Dark/Light Toggle
+        function toggleMode() {
+            const body = document.getElementById('main');
+            const btn = document.getElementById('modeBtn');
+            body.classList.toggle('light-mode');
+            if(body.classList.contains('light-mode')) {
+                btn.innerText = "Switch to Stealth";
+            } else {
+                btn.innerText = "Switch to Prism";
+            }
+        }
+
+        // VCard Download
+        function downloadVCard() {
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Parth Hiray\nTEL;TYPE=CELL:6969696969\nEND:VCARD";
+            const blob = new Blob([vcard], { type: "text/vcard" });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'Parth_Hiray.vcf';
+            a.click();
+        }
+
+        // Final Redirect
+        function handleInsta(e) {
             e.preventDefault();
             gsap.to("body", { opacity: 0, duration: 1, onComplete: () => {
                 window.location.href = "https://instagram.com/parthhiray";
